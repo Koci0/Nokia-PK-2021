@@ -39,11 +39,28 @@ void Application::handleSib(common::BtsId btsId)
 void Application::handleAttachAccept()
 {
     context.state->handleAttachAccept();
+
+    // TODO: Temporary request simulation
+    common::PhoneNumber tempPhoneNumber {255};
+    this->handleCallRequest(tempPhoneNumber);
+    // TODO: overall - remove logInfo
 }
 
-void Application::handleAttachReject()
+    void Application::handleAttachReject()
 {
     context.state->handleAttachReject();
+}
+
+void Application::handleCallRequest(common::PhoneNumber fromPhoneNumber)
+{
+    logger.logInfo("handleCallRequest: ", fromPhoneNumber);
+    context.state->handleCallRequest(fromPhoneNumber);
+}
+
+void Application::handleCallAccepted(common::PhoneNumber toPhoneNumber)
+{
+    logger.logInfo("Application::handleCallAccepted: ", toPhoneNumber);
+    context.state->handleCallAccepted(toPhoneNumber);
 }
 
 }

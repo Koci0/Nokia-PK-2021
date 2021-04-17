@@ -5,6 +5,7 @@
 #include "Mocks/ILoggerMock.hpp"
 #include "Mocks/IBtsPortMock.hpp"
 #include "Mocks/IUserPortMock.hpp"
+#include "Mocks/IUeGuiMock.hpp"
 #include "Mocks/ITimerPortMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Messages/BtsId.hpp"
@@ -30,7 +31,8 @@ protected:
                                 loggerMock,
                                 btsPortMock,
                                 userPortMock,
-                                timerPortMock};
+                                timerPortMock
+                                };
 };
 
 struct ApplicationNotConnectedTestSuite : ApplicationTestSuite
@@ -111,6 +113,57 @@ TEST_F(ApplicationConnectedTestSuite, shallReattach)
     doConnected();
 }
 
+TEST_F(ApplicationConnectedTestSuite, shallSendIncomingCallMessageOnCallRequest)
+{
+    EXPECT_CALL(userPortMock, setupButtons);
+    EXPECT_CALL(userPortMock, showIncomingCall(PHONE_NUMBER));
+    EXPECT_CALL(timerPortMock, startTimer(30000ms));
+    objectUnderTest.handleCallRequest(PHONE_NUMBER);
+}
 
+struct ApplicationCallHandleTestSuite : ApplicationConnectedTestSuite
+{
+    ApplicationCallHandleTestSuite();
+    void doTalking();
+};
 
+ApplicationCallHandleTestSuite::ApplicationCallHandleTestSuite()
+{
+    doTalking();
+}
+
+void ApplicationCallHandleTestSuite::doTalking()
+{
+    // TODO
+    EXPECT_CALL(btsPortMock, sendCallAccepted(PHONE_NUMBER));
+    EXPECT_CALL(userPortMock, setupButtons);
+    EXPECT_CALL(userPortMock, showCallMode());
+    objectUnderTest.handleCallAccepted(PHONE_NUMBER);
+}
+
+TEST_F(ApplicationCallHandleTestSuite, shallSendAcceptCallResponseMessage)
+{
+    // TODO: How to simulate a button press?
+    objectUnderTest.handleCallAccepted(PHONE_NUMBER);
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendRejectCallResponseMessage)
+{
+    // TODO
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallShowTalkingStateOnCallAccept)
+{
+    // TODO
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallShowConnectedStateOnRejectCall)
+{
+    // TODO
+}
+
+TEST_F(ApplicationConnectedTestSuite, shallSendTimeoutCallResponseMessage)
+{
+    // TODO
+}
 }

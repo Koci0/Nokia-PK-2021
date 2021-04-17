@@ -1,5 +1,7 @@
 #include "UserPort.hpp"
 #include "UeGui/IListViewMode.hpp"
+#include "UeGui/ICallMode.hpp"
+#include "UeGui/ITextMode.hpp"
 
 namespace ue
 {
@@ -37,6 +39,25 @@ void UserPort::showConnected()
     menu.clearSelectionList();
     menu.addSelectionListItem("Compose SMS", "");
     menu.addSelectionListItem("View SMS", "");
+}
+
+void UserPort::setupButtons(std::function<void()> acceptCallback, std::function<void()> rejectCallback)
+{
+    logger.logInfo("UserPort::setupButtons()");
+    gui.setAcceptCallback(acceptCallback);
+    gui.setRejectCallback(rejectCallback);
+}
+
+void UserPort::showIncomingCall(common::PhoneNumber fromPhoneNumber)
+{
+    logger.logInfo("showIncomingCall()");
+    IUeGui::ITextMode& mode = gui.setAlertMode();
+    mode.setText("Incoming call from: " + to_string(fromPhoneNumber));
+}
+
+void UserPort::showCallMode()
+{
+    gui.setCallMode();
 }
 
 }

@@ -56,8 +56,18 @@ void BtsPort::handleMessage(BinaryMessage msg)
                 handler->handleAttachReject();
             break;
         }
+        case common::MessageId::CallRequest:
+        {
+            handler->handleCallRequest(from);
+            break;
+        }
+        case common::MessageId::CallAccepted:
+        {
+            handler->handleCallAccepted(to);
+            break;
+        }
         default:
-            logger.logError("unknow message: ", msgId, ", from: ", from);
+            logger.logError("unknown message: ", msgId, ", from: ", from);
 
         }
     }
@@ -76,8 +86,15 @@ void BtsPort::sendAttachRequest(common::BtsId btsId)
                                 common::PhoneNumber{}};
     msg.writeBtsId(btsId);
     transport.sendMessage(msg.getMessage());
+}
 
-
+void BtsPort::sendCallAccepted(common::PhoneNumber toPhoneNumber)
+{
+    logger.logInfo("sendCallAccepted: ", phoneNumber);
+    common::OutgoingMessage msg{common::MessageId::CallAccepted,
+                                phoneNumber,
+                                toPhoneNumber};
+    transport.sendMessage(msg.getMessage());
 }
 
 }

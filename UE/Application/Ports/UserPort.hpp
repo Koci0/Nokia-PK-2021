@@ -18,6 +18,9 @@ public:
     void showNotConnected() override;
     void showConnecting() override;
     void showConnected() override;
+    void setupButtons(std::function<void()> acceptCallback, std::function<void()> rejectCallback) override;
+    void showIncomingCall(common::PhoneNumber fromPhoneNumber) override;
+    void showCallMode() override;
 
 private:
     common::PrefixedLogger logger;
