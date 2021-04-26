@@ -5,12 +5,13 @@
 namespace ue
 {
 
-class TalkingState: public BaseState
+class TalkingState : public BaseState
 {
 public:
-    TalkingState(Context& context, common::PhoneNumber toPhoneNumber);
+    TalkingState(Context& context, common::PhoneNumber withPhoneNumber);
 
-    void handleCallAccepted(common::PhoneNumber toPhoneNumber) override;
+    // IBtsEventsHandler interface
+public:
 };
 
 }

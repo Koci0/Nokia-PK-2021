@@ -1,6 +1,6 @@
 #include "UserPort.hpp"
-#include "UeGui/IListViewMode.hpp"
 #include "UeGui/ICallMode.hpp"
+#include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
 
 namespace ue
@@ -41,22 +41,29 @@ void UserPort::showConnected()
     menu.addSelectionListItem("View SMS", "");
 }
 
-void UserPort::setupButtons(std::function<void()> acceptCallback, std::function<void()> rejectCallback)
+void UserPort::showCallRequest(common::PhoneNumber fromPhoneNumber)
 {
-    logger.logInfo("UserPort::setupButtons()");
-    gui.setAcceptCallback(acceptCallback);
-    gui.setRejectCallback(rejectCallback);
+    logger.logInfo("UserPort::showCalLRequest");
+    IUeGui::ITextMode& alertMode = gui.setAlertMode();
+    alertMode.setText("Incoming call from: " + to_string(fromPhoneNumber));
 }
 
-void UserPort::showIncomingCall(common::PhoneNumber fromPhoneNumber)
+void UserPort::resetButtons()
 {
-    logger.logInfo("showIncomingCall()");
-    IUeGui::ITextMode& mode = gui.setAlertMode();
-    mode.setText("Incoming call from: " + to_string(fromPhoneNumber));
+    gui.setAcceptCallback(nullptr);
+    gui.setRejectCallback(nullptr);
 }
 
-void UserPort::showCallMode()
+void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallback, std::function<void()> rejectButtonCallback)
 {
+    logger.logInfo("UserPort::setupIncomingCallButtons");
+    gui.setAcceptCallback(acceptButtonCallback);
+    gui.setRejectCallback(rejectButtonCallback);
+}
+
+void UserPort::showTalking()
+{
+    logger.logInfo("UserPort::showTalking");
     gui.setCallMode();
 }
 

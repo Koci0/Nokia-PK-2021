@@ -17,37 +17,37 @@ BaseState::~BaseState()
 
 void BaseState::handleTimeout()
 {
-    logger.logError("Unexpected: handleTimeout");
+    logger.logError("Uexpected: handleTimeout");
 }
 
 void BaseState::handleDisconnected()
 {
-    logger.logError("Unexpected: handleDisconnected");
+    logger.logError("Uexpected: handleDisconnected");
 }
 
 void BaseState::handleSib(common::BtsId btsId)
 {
-    logger.logError("Unexpected: handleSib: ", btsId);
+    logger.logError("Uexpected: handleSib: ", btsId);
 }
 
 void BaseState::handleAttachAccept()
 {
-    logger.logError("Unexpected: handleAttachAccept");
+    logger.logError("Uexpected: handleAttachAccept");
 }
 
 void BaseState::handleAttachReject()
 {
-    logger.logError("Unexpected: handleAttachReject");
+    logger.logError("Uexpected: handleAttachReject");
 }
 
-void BaseState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
+void BaseState::handleCallRequest(common::PhoneNumber)
 {
     logger.logError("Unexpected: handleCallRequest");
 }
 
-void BaseState::handleCallAccepted(common::PhoneNumber toPhoneNumber)
+void BaseState::handleCallRequestAccept(common::PhoneNumber)
 {
-    logger.logError("Unexpected: handleCallRequest");
+    logger.logError("Unexpected: handleCallRequestAcept");
 }
 
 }
