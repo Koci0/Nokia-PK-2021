@@ -19,4 +19,12 @@ public:
 
 };
 
+inline bool operator==(const Sms& left, const Sms& right)
+{
+    return left.from==right.from
+            && left.messageId==right.messageId
+            && left.text==right.text
+            && left.to==right.to;
+}
+
 }
