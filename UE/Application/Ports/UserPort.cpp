@@ -2,8 +2,8 @@
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
 
-#include "Ports/Sms.hpp"
-#include "Ports/ISmsDb.hpp"
+#include "Sms.hpp"
+#include "ISmsDb.hpp"
 
 #include <string>
 

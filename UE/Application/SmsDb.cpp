@@ -9,9 +9,8 @@ SmsDb::SmsDb(){
     std::vector<Sms> vec;
     std::string s1 = "Alamakota";
     this->v_sms = vec;
-    struct common::PhoneNumber number;
+    const common::PhoneNumber number{11};
     v_sms.push_back(Sms(number,s1));
-    //v_sms.push_back(new Sms('10','Ala'));
 }
 SmsDb::SmsDb(std::vector<Sms> v_sms){
     this->v_sms = v_sms;

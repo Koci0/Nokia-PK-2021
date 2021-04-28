@@ -5,7 +5,7 @@
 #include "IUeGui.hpp"
 #include "Messages/PhoneNumber.hpp"
 
-#include "Ports/ISmsDb.hpp"
+#include "ISmsDb.hpp"
 
 namespace ue
 {
