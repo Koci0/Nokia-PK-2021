@@ -5,7 +5,6 @@
 #include "Mocks/ILoggerMock.hpp"
 #include "Mocks/IBtsPortMock.hpp"
 #include "Mocks/IUserPortMock.hpp"
-#include "Mocks/IUeGuiMock.hpp"
 #include "Mocks/ITimerPortMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Messages/BtsId.hpp"
@@ -31,8 +30,7 @@ protected:
                                 loggerMock,
                                 btsPortMock,
                                 userPortMock,
-                                timerPortMock
-                                };
+                                timerPortMock};
 };
 
 struct ApplicationNotConnectedTestSuite : ApplicationTestSuite
@@ -113,57 +111,37 @@ TEST_F(ApplicationConnectedTestSuite, shallReattach)
     doConnected();
 }
 
-TEST_F(ApplicationConnectedTestSuite, shallSendIncomingCallMessageOnCallRequest)
+TEST_F(ApplicationConnectedTestSuite, shallShowIncomingCallOnCallRequest)
 {
-    EXPECT_CALL(userPortMock, setupButtons);
-    EXPECT_CALL(userPortMock, showIncomingCall(PHONE_NUMBER));
-    EXPECT_CALL(timerPortMock, startTimer(30000ms));
+    EXPECT_CALL(userPortMock, showCallRequest(PHONE_NUMBER));
+    EXPECT_CALL(userPortMock, setupIncomingCallButtons(_, _));
+    EXPECT_CALL(timerPortMock, startTimer(_));
     objectUnderTest.handleCallRequest(PHONE_NUMBER);
 }
 
-struct ApplicationCallHandleTestSuite : ApplicationConnectedTestSuite
+struct ApplicationTalkingTestSuite : ApplicationConnectedTestSuite
 {
-    ApplicationCallHandleTestSuite();
+    ApplicationTalkingTestSuite();
     void doTalking();
 };
 
-ApplicationCallHandleTestSuite::ApplicationCallHandleTestSuite()
+ApplicationTalkingTestSuite::ApplicationTalkingTestSuite()
 {
     doTalking();
 }
 
-void ApplicationCallHandleTestSuite::doTalking()
+void ApplicationTalkingTestSuite::doTalking()
 {
-    // TODO
-    EXPECT_CALL(btsPortMock, sendCallAccepted(PHONE_NUMBER));
-    EXPECT_CALL(userPortMock, setupButtons);
-    EXPECT_CALL(userPortMock, showCallMode());
-    objectUnderTest.handleCallAccepted(PHONE_NUMBER);
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(userPortMock, resetButtons());
+    EXPECT_CALL(userPortMock, showTalking());
+    EXPECT_CALL(btsPortMock, sendCallAccept(_));
+    objectUnderTest.handleCallRequestAccept(PHONE_NUMBER);
 }
 
-TEST_F(ApplicationCallHandleTestSuite, shallSendAcceptCallResponseMessage)
+TEST_F(ApplicationTalkingTestSuite, shallAcceptIncomingCallOnAcceptButtonPress)
 {
-    // TODO: How to simulate a button press?
-    objectUnderTest.handleCallAccepted(PHONE_NUMBER);
+    // see test-suite constructor
 }
 
-TEST_F(ApplicationConnectedTestSuite, shallSendRejectCallResponseMessage)
-{
-    // TODO
-}
-
-TEST_F(ApplicationConnectedTestSuite, shallShowTalkingStateOnCallAccept)
-{
-    // TODO
-}
-
-TEST_F(ApplicationConnectedTestSuite, shallShowConnectedStateOnRejectCall)
-{
-    // TODO
-}
-
-TEST_F(ApplicationConnectedTestSuite, shallSendTimeoutCallResponseMessage)
-{
-    // TODO
-}
 }

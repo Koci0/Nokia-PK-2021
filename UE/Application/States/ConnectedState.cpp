@@ -18,20 +18,29 @@ void ConnectedState::handleDisconnected()
 
 void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
 {
-    logger.logInfo("ConnectedState::handleCallRequest()");
-    auto accept = [this, fromPhoneNumber]() {
+    logger.logInfo("ConnectedState::handleCallRequest");
+    context.user.showCallRequest(fromPhoneNumber);
+
+    auto acceptButtonCallback = [this, fromPhoneNumber]() {
         logger.logInfo("handleCallRequestAccept()");
-        context.timer.stopTimer();
-        context.setState<TalkingState>(fromPhoneNumber);
+        handleCallRequestAccept(fromPhoneNumber);
     };
-    auto reject = [this]() {
+    auto rejectButtonCallback = [this]() {
         logger.logInfo("handleCallRequestReject()");
         // TODO
     };
-    context.user.setupButtons(accept, reject);
-    context.user.showIncomingCall(fromPhoneNumber);
+    context.user.setupIncomingCallButtons(acceptButtonCallback, rejectButtonCallback);
+
     using namespace std::chrono_literals;
     context.timer.startTimer(30s);
+}
+
+void ConnectedState::handleCallRequestAccept(common::PhoneNumber fromPhoneNumber)
+{
+    logger.logInfo("ConnectedState::handleCallRequestAccept");
+    context.timer.stopTimer();
+    context.user.resetButtons();
+    context.setState<TalkingState>(fromPhoneNumber);
 }
 
 }

@@ -16,7 +16,7 @@ public:
     void stop();
 
     void sendAttachRequest(common::BtsId) override;
-    void sendCallAccepted(common::PhoneNumber toPhoneNumber) override;
+    void sendCallAccept(common::PhoneNumber) override;
 
 private:
     void handleDisconnected();
