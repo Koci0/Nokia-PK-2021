@@ -1,12 +1,12 @@
 #include "SmsDb.hpp"
 #include "Sms.hpp"
-
 #include <vector>
 
 namespace ue
 {
 SmsDb::SmsDb(){
     std::vector<Sms> vec;
+    //init vector for debug purpose
     std::string s1 = "Alamakota";
     this->v_sms = vec;
     const common::PhoneNumber number{11};

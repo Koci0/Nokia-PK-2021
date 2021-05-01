@@ -7,8 +7,7 @@
 #include "Mocks/IUserPortMock.hpp"
 #include "Mocks/ITimerPortMock.hpp"
 #include "Mocks/ISmsDbMock.hpp"
-
-
+#include "Sms.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Messages/BtsId.hpp"
 #include <memory>
@@ -35,8 +34,7 @@ protected:
                                 btsPortMock,
                                 userPortMock,
                                 timerPortMock,
-                                smsDbMock
-                                };
+                                smsDbMock};
 };
 
 struct ApplicationNotConnectedTestSuite : ApplicationTestSuite

@@ -1,10 +1,8 @@
 #include "UserPort.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
-
 #include "Sms.hpp"
 #include "ISmsDb.hpp"
-
 #include <string>
 
 namespace ue
