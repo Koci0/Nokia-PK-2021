@@ -91,4 +91,13 @@ void BtsPort::sendCallAccept(common::PhoneNumber toPhoneNumber)
     transport.sendMessage(msg.getMessage());
 }
 
+void BtsPort::sendCallReject(common::PhoneNumber toPhoneNumber)
+{
+    logger.logInfo("BtsPort::sendCallReject: ", to_string(toPhoneNumber));
+    common::OutgoingMessage msg{common::MessageId::CallDropped,
+                                phoneNumber,
+                                toPhoneNumber};
+    transport.sendMessage(msg.getMessage());
+}
+
 }

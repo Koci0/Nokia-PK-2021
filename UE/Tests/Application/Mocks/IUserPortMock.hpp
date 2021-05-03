@@ -13,6 +13,7 @@ public:
     ~IUserEventsHandlerMock() override;
 
     MOCK_METHOD(void, handleCallRequestAccept, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleCallRequestReject, (common::PhoneNumber), (final));
 };
 
 class IUserPortMock : public IUserPort
