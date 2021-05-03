@@ -13,6 +13,10 @@ public:
     // IBtsEventsHandler interface
 public:
     void handleDisconnected() final;
+    void handleCallAccepted() final;
+
+    // IUserEventsHandler interface
+    void handleSendCallRequest(common::PhoneNumber to) final;
 };
 
 }

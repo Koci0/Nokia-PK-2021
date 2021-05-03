@@ -29,6 +29,10 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+    void handleCallAccepted() override;
+
+    // IUserEventsHandler interface
+    void handleSendCallRequest(common::PhoneNumber to) override;
 
 private:
     Context context;

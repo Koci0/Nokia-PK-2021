@@ -1,5 +1,6 @@
 #include "UserPort.hpp"
 #include "UeGui/IListViewMode.hpp"
+#include "UeGui/IDialMode.hpp"
 
 namespace ue
 {
@@ -37,6 +38,23 @@ void UserPort::showConnected()
     menu.clearSelectionList();
     menu.addSelectionListItem("Compose SMS", "");
     menu.addSelectionListItem("View SMS", "");
+    menu.addSelectionListItem("Call", "");
+
+    gui.setAcceptCallback([&](){
+        if(menu.getCurrentItemIndex().second == 2){
+            setupCallReceiver();
+        };
+    });
+}
+
+void UserPort::setupCallReceiver()
+{
+    logger.logInfo("setup call receiver");
+    auto& mode = gui.setDialMode();
+    gui.setAcceptCallback([&](){
+        logger.logInfo("to: ", mode.getPhoneNumber());
+        this->handler->handleSendCallRequest(mode.getPhoneNumber());
+    });
 }
 
 }

@@ -15,4 +15,15 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
+void ConnectedState::handleSendCallRequest(common::PhoneNumber to)
+{
+    context.bts.sendCallRequest(to);
+}
+
+void ConnectedState::handleCallAccepted()
+{
+    // TODO change mode to talking state
+    logger.logInfo("ConnectedState: handleCallAccepted");
+}
+
 }

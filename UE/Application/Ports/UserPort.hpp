@@ -18,6 +18,7 @@ public:
     void showNotConnected() override;
     void showConnecting() override;
     void showConnected() override;
+    void setupCallReceiver() override;
 
 private:
     common::PrefixedLogger logger;

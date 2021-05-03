@@ -22,6 +22,10 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
 
+    // IUserEventsHandler interface
+    void handleSendCallRequest(common::PhoneNumber) override;
+    void handleCallAccepted() override;
+
 protected:
     Context& context;
     common::PrefixedLogger logger;
