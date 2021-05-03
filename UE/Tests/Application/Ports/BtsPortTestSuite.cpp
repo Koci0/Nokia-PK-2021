@@ -122,4 +122,13 @@ TEST_F(BtsPortTestSuite, shallHandleCallAccepted)
     messageCallback(msg.getMessage());
 }
 
+TEST_F(BtsPortTestSuite, shallHandleCallDropped)
+{
+    EXPECT_CALL(handlerMock, handleCallDropped());
+    common::OutgoingMessage msg{common::MessageId::CallDropped,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    messageCallback(msg.getMessage());
+}
+
 }
