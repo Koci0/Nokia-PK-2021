@@ -26,4 +26,10 @@ void ConnectedState::handleCallAccepted()
     logger.logInfo("ConnectedState: handleCallAccepted");
 }
 
+void ConnectedState::handleCallDropped()
+{
+    logger.logInfo("ConnectedState: handleCallDropped");
+    context.user.showShortInfo("User dropped a call.");
+}
+
 }

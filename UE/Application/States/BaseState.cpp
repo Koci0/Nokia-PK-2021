@@ -50,4 +50,9 @@ void BaseState::handleCallAccepted()
     logger.logError("Unexpected: handleCallAccepted");
 }
 
+void BaseState::handleCallDropped()
+{
+    logger.logError("Unexpected: handleCallDropped");
+}
+
 }
