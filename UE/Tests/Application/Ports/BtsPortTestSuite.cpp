@@ -124,8 +124,17 @@ TEST_F(BtsPortTestSuite, shallHandleCallAccepted)
 
 TEST_F(BtsPortTestSuite, shallHandleCallDropped)
 {
-    EXPECT_CALL(handlerMock, handleCallDropped());
+    EXPECT_CALL(handlerMock, handleCallFailure(_));
     common::OutgoingMessage msg{common::MessageId::CallDropped,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    messageCallback(msg.getMessage());
+}
+
+TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
+{
+    EXPECT_CALL(handlerMock, handleCallFailure(_));
+    common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
     messageCallback(msg.getMessage());
