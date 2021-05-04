@@ -103,4 +103,16 @@ TEST_F(BtsPortTestSuite, shallSendAttachRequest)
     ASSERT_NO_THROW(reader.checkEndOfMessage());
 }
 
+TEST_F(BtsPortTestSuite, shallSendCallReject)
+{
+    common::BinaryMessage msg;
+    common::PhoneNumber toPhoneNumber{1};
+    EXPECT_CALL(transportMock, sendMessage(_)).WillOnce([&msg](auto param) { msg = std::move(param); return true; });
+    objectUnderTest.sendCallReject(toPhoneNumber);
+    common::IncomingMessage reader(msg);
+    ASSERT_NO_THROW(EXPECT_EQ(common::MessageId::CallDropped, reader.readMessageId()));
+    ASSERT_NO_THROW(EXPECT_EQ(PHONE_NUMBER, reader.readPhoneNumber()));
+    ASSERT_NO_THROW(EXPECT_EQ(toPhoneNumber, reader.readPhoneNumber()));
+}
+
 }

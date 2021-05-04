@@ -119,6 +119,15 @@ TEST_F(ApplicationConnectedTestSuite, shallShowIncomingCallOnCallRequest)
     objectUnderTest.handleCallRequest(PHONE_NUMBER);
 }
 
+TEST_F(ApplicationConnectedTestSuite, shallRejectCallonCallRequestReject)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(userPortMock, resetButtons());
+    EXPECT_CALL(userPortMock, showConnected());
+    EXPECT_CALL(btsPortMock, sendCallReject(_));
+    objectUnderTest.handleCallRequestReject(PHONE_NUMBER);
+}
+
 struct ApplicationTalkingTestSuite : ApplicationConnectedTestSuite
 {
     ApplicationTalkingTestSuite();

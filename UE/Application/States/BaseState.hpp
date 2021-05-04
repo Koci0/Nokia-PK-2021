@@ -23,6 +23,7 @@ public:
     void handleAttachReject() override;
     void handleCallRequest(common::PhoneNumber) override;
     void handleCallRequestAccept(common::PhoneNumber fromPhoneNumber) override;
+    void handleCallRequestReject(common::PhoneNumber fromPhoneNumber) override;
 
 protected:
     Context& context;

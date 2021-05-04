@@ -25,9 +25,9 @@ void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
         logger.logInfo("handleCallRequestAccept()");
         handleCallRequestAccept(fromPhoneNumber);
     };
-    auto rejectButtonCallback = [this]() {
+    auto rejectButtonCallback = [this, fromPhoneNumber]() {
         logger.logInfo("handleCallRequestReject()");
-        // TODO
+        handleCallRequestReject(fromPhoneNumber);
     };
     context.user.setupIncomingCallButtons(acceptButtonCallback, rejectButtonCallback);
 
@@ -41,6 +41,15 @@ void ConnectedState::handleCallRequestAccept(common::PhoneNumber fromPhoneNumber
     context.timer.stopTimer();
     context.user.resetButtons();
     context.setState<TalkingState>(fromPhoneNumber);
+}
+
+void ConnectedState::handleCallRequestReject(common::PhoneNumber fromPhoneNumber)
+{
+    logger.logInfo("ConnectedState::handleCalLRequestReject");
+    context.timer.stopTimer();
+    context.user.resetButtons();
+    context.user.showConnected();
+    context.bts.sendCallReject(fromPhoneNumber);
 }
 
 }
