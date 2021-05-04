@@ -128,6 +128,14 @@ TEST_F(ApplicationConnectedTestSuite, shallRejectCallonCallRequestReject)
     objectUnderTest.handleCallRequestReject(PHONE_NUMBER);
 }
 
+TEST_F(ApplicationConnectedTestSuite, shallRejectCallOnCallRequestTimeout)
+{
+    EXPECT_CALL(userPortMock, resetButtons());
+    EXPECT_CALL(userPortMock, showConnected());
+    EXPECT_CALL(btsPortMock, sendCallReject(_));
+    objectUnderTest.handleTimeout();
+}
+
 struct ApplicationTalkingTestSuite : ApplicationConnectedTestSuite
 {
     ApplicationTalkingTestSuite();

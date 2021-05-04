@@ -16,6 +16,14 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
+void ConnectedState::handleTimeout()
+{
+    logger.logInfo("ConnectedState::handleTimeout");
+    context.user.resetButtons();
+    context.user.showConnected();
+    context.bts.sendCallReject(context.foreignPhoneNumber);
+}
+
 void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
 {
     logger.logInfo("ConnectedState::handleCallRequest");
@@ -31,6 +39,7 @@ void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
     };
     context.user.setupIncomingCallButtons(acceptButtonCallback, rejectButtonCallback);
 
+    context.foreignPhoneNumber = fromPhoneNumber;
     using namespace std::chrono_literals;
     context.timer.startTimer(30s);
 }
