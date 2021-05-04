@@ -56,4 +56,9 @@ void Application::handleCallAccepted()
     context.state->handleCallAccepted();
 }
 
+void Application::handleCallDropped()
+{
+    context.state->handleCallDropped();
+}
+
 }

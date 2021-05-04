@@ -1,6 +1,7 @@
 #include "UserPort.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/IDialMode.hpp"
+#include "UeGui/ITextMode.hpp"
 
 namespace ue
 {
@@ -54,6 +55,16 @@ void UserPort::setupCallReceiver()
     gui.setAcceptCallback([&](){
         logger.logInfo("to: ", mode.getPhoneNumber());
         this->handler->handleSendCallRequest(mode.getPhoneNumber());
+    });
+}
+
+void UserPort::showShortInfo(std::string message)
+{
+    logger.logDebug("showShortInfo - message:", message);
+    auto& mode = gui.setAlertMode();
+    mode.setText(message);
+    gui.setRejectCallback([&](){
+        showConnected();
     });
 }
 

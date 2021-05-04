@@ -22,6 +22,7 @@ public:
     virtual void showConnecting() = 0;
     virtual void showConnected() = 0;
     virtual void setupCallReceiver() = 0;
+    virtual void showShortInfo(std::string) = 0;
 };
 
 }

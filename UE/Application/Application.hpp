@@ -30,6 +30,7 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
     void handleCallAccepted() override;
+    void handleCallDropped() override;
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) override;
