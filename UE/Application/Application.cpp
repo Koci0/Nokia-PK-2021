@@ -56,9 +56,9 @@ void Application::handleCallAccepted()
     context.state->handleCallAccepted();
 }
 
-void Application::handleCallDropped()
+void Application::handleCallFailure(std::string message)
 {
-    context.state->handleCallDropped();
+    context.state->handleCallFailure(message);
 }
 
 }

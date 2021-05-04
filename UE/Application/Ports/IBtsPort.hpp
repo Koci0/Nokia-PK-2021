@@ -16,7 +16,7 @@ public:
     virtual void handleAttachAccept() = 0;
     virtual void handleAttachReject() = 0;
     virtual void handleCallAccepted() = 0;
-    virtual void handleCallDropped() = 0;
+    virtual void handleCallFailure(std::string) = 0;
 };
 
 class IBtsPort

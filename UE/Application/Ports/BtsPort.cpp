@@ -65,7 +65,13 @@ void BtsPort::handleMessage(BinaryMessage msg)
         case common::MessageId::CallDropped:
         {
             logger.logInfo("BTS handleMessage: CallDropped");
-            handler->handleCallDropped();
+            handler->handleCallFailure("User dropped a call.");
+            break;
+        }
+        case common::MessageId::UnknownRecipient:
+        {
+            logger.logInfo("BTS handleMessage: UnknownRecipient");
+            handler->handleCallFailure("User is not connected.");
             break;
         }
         default:
