@@ -40,7 +40,6 @@ void ConnectedState::handleTimeout()
 {
     logger.logInfo("Timeout");
     context.user.showShortInfo("Timeout.");
-    context.timer.stopTimer();
 }
 
 }
