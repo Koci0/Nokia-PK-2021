@@ -153,4 +153,10 @@ TEST_F(ApplicationTalkingTestSuite, shallAcceptIncomingCallOnAcceptButtonPress)
     // see test-suite constructor
 }
 
+TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnUnknownRecipient)
+{
+    EXPECT_CALL(userPortMock, showPeerUserDisconnected());
+    objectUnderTest.handleUnknownRecipient(PHONE_NUMBER);
+}
+
 }

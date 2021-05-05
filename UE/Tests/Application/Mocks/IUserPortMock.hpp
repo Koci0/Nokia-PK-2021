@@ -29,6 +29,8 @@ public:
     MOCK_METHOD(void, resetButtons, (), (final));
     MOCK_METHOD(void, setupIncomingCallButtons, (std::function<void()>, std::function<void()>), (final));
     MOCK_METHOD(void, showTalking, (), (final));
+    MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
+    MOCK_METHOD(void, showAlert, (std::string), (final));
 };
 
 }

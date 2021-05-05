@@ -75,4 +75,11 @@ TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
     objectUnderTest.showTalking();
 }
 
+TEST_F(UserPortTestSuite, shallShowAlertOnPeerUserDisconnected)
+{
+    EXPECT_CALL(guiMock, setAlertMode()).WillOnce(ReturnRef(textModeMock));
+    EXPECT_CALL(textModeMock, setText(_));
+    objectUnderTest.showAlert("_");
+}
+
 }

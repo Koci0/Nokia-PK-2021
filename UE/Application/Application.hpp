@@ -32,6 +32,7 @@ public:
     void handleCallRequest(common::PhoneNumber fromPhoneNumber) override;
     void handleCallRequestAccept(common::PhoneNumber fromPhoneNumber) override;
     void handleCallRequestReject(common::PhoneNumber fromPhoneNumber) override;
+    void handleUnknownRecipient(common::PhoneNumber callingPhoneNumber) override;
 
 private:
     Context context;

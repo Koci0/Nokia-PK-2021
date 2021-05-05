@@ -11,7 +11,7 @@ public:
     TalkingState(Context& context, common::PhoneNumber withPhoneNumber);
 
     // IBtsEventsHandler interface
-public:
+    void handleUnknownRecipient(common::PhoneNumber) final;
 };
 
 }

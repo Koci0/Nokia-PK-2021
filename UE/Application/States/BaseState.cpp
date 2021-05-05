@@ -55,4 +55,9 @@ void BaseState::handleCallRequestReject(common::PhoneNumber)
     logger.logError("Unexpected: handleCallRequestReject");
 }
 
+void BaseState::handleUnknownRecipient(common::PhoneNumber)
+{
+    logger.logError("Unexpected: handleUnknownRecipient");
+}
+
 }
