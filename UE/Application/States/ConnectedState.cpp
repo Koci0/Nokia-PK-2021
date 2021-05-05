@@ -36,10 +36,11 @@ void ConnectedState::handleCallFailure(std::string message)
     context.timer.stopTimer();
 }
 
-    void ConnectedState::handleTimeout()
-    {
-        logger.logInfo("Timeout");
-        context.user.showShortInfo("Timeout.");
+void ConnectedState::handleTimeout()
+{
+    logger.logInfo("Timeout");
+    context.user.showShortInfo("Timeout.");
+    context.timer.stopTimer();
 }
 
 }
