@@ -54,6 +54,7 @@ void UserPort::setupCallReceiver()
     auto& mode = gui.setDialMode();
     gui.setAcceptCallback([&](){
         logger.logInfo("to: ", mode.getPhoneNumber());
+        showShortInfo("Calling...");
         this->handler->handleSendCallRequest(mode.getPhoneNumber());
     });
 }
