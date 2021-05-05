@@ -10,6 +10,10 @@ class ConnectedState : public BaseState
 public:
     ConnectedState(Context& context);
 
+    // ITimerEventsHandler interface
+public:
+    void handleTimeout() final;
+
     // IBtsEventsHandler interface
 public:
     void handleDisconnected() final;
