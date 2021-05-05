@@ -14,7 +14,7 @@ public:
 public:
     void handleDisconnected() final;
     void handleCallAccepted() final;
-    void handleCallDropped() final;
+    void handleCallFailure(std::string) final;
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) final;

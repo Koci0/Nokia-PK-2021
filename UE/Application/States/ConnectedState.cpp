@@ -26,10 +26,10 @@ void ConnectedState::handleCallAccepted()
     logger.logInfo("ConnectedState: handleCallAccepted");
 }
 
-void ConnectedState::handleCallDropped()
+void ConnectedState::handleCallFailure(std::string message)
 {
-    logger.logInfo("ConnectedState: handleCallDropped");
-    context.user.showShortInfo("User dropped a call.");
+    logger.logInfo("ConnectedState: handleCallFailure");
+    context.user.showShortInfo(message);
 }
 
 }
