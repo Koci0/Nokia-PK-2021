@@ -23,7 +23,7 @@ public:
     void setupIncomingCallButtons(std::function<void()>, std::function<void()>) override;
     void showTalking() override;
     void showPeerUserDisconnected() override;
-    void showAlert(std::string message) override;
+    void showShortInfo(std::string &&message) override;
 
 private:
     common::PrefixedLogger logger;

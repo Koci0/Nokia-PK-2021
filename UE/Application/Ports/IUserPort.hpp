@@ -29,7 +29,7 @@ public:
     virtual void setupIncomingCallButtons(std::function<void()>, std::function<void()>) = 0;
     virtual void showTalking() = 0;
     virtual void showPeerUserDisconnected() = 0;
-    virtual void showAlert(std::string message) = 0;
+    virtual void showShortInfo(std::string &&message) = 0;
 };
 
 }
