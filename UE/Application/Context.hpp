@@ -14,7 +14,7 @@ struct Context
     IUserPort& user;
     ITimerPort& timer;
     std::unique_ptr<IEventsHandler> state{};
-    common::PhoneNumber foreignPhoneNumber{};
+    common::PhoneNumber callingPhoneNumber{};
 
     template <typename State, typename ...Arg>
     void setState(Arg&& ...arg)

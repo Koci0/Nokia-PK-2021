@@ -119,13 +119,13 @@ TEST_F(ApplicationConnectedTestSuite, shallShowIncomingCallOnCallRequest)
     objectUnderTest.handleCallRequest(PHONE_NUMBER);
 }
 
-TEST_F(ApplicationConnectedTestSuite, shallRejectCallonCallRequestReject)
+TEST_F(ApplicationConnectedTestSuite, shallRejectCallOnCallRequestReject)
 {
     EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(userPortMock, resetButtons());
     EXPECT_CALL(userPortMock, showConnected());
     EXPECT_CALL(btsPortMock, sendCallReject(_));
-    objectUnderTest.handleCallRequestReject(PHONE_NUMBER);
+    objectUnderTest.handleCallRequestReject();
 }
 
 TEST_F(ApplicationConnectedTestSuite, shallRejectCallOnCallRequestTimeout)
@@ -153,7 +153,7 @@ void ApplicationTalkingTestSuite::doTalking()
     EXPECT_CALL(userPortMock, resetButtons());
     EXPECT_CALL(userPortMock, showTalking());
     EXPECT_CALL(btsPortMock, sendCallAccept(_));
-    objectUnderTest.handleCallRequestAccept(PHONE_NUMBER);
+    objectUnderTest.handleCallRequestAccept();
 }
 
 TEST_F(ApplicationTalkingTestSuite, shallAcceptIncomingCallOnAcceptButtonPress)

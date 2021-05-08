@@ -84,7 +84,7 @@ void BtsPort::sendAttachRequest(common::BtsId btsId)
 
 void BtsPort::sendCallAccept(common::PhoneNumber toPhoneNumber)
 {
-    logger.logInfo("BtsPort::sendCallAccept", to_string(toPhoneNumber));
+    logger.logInfo("BtsPort::sendCallAccept: ", to_string(toPhoneNumber));
     common::OutgoingMessage msg{common::MessageId::CallAccepted,
                                 phoneNumber,
                                 toPhoneNumber};
