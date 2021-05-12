@@ -39,7 +39,7 @@ void TimerPort::timerThread(Duration duration)
     for(int i = duration / 100ms; i > -1; i--)
     {
         std::this_thread::sleep_for(100ms);
-        if (!this->running)
+        if (not running)
             return;
     }
     logger.logError("Timeout");
