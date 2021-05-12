@@ -22,6 +22,7 @@ public:
     virtual void showSmsReceived() = 0;
     virtual void showSmsList() = 0;
     virtual void showSms(int id) = 0;
+    virtual void showSmsCompose() = 0;
 };
 
 }

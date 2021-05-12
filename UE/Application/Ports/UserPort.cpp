@@ -1,6 +1,7 @@
 #include "UserPort.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/ITextMode.hpp"
+#include "UeGui/ISmsComposeMode.hpp"
 #include "Sms.hpp"
 #include "ISmsDb.hpp"
 #include <string>
@@ -46,7 +47,9 @@ void UserPort::showConnected()
     gui.setAcceptCallback([&](){
         if(menu.getCurrentItemIndex().second == 1){
             showSmsList();
-        };
+        } else if (menu.getCurrentItemIndex().second == 0) {
+            showSmsCompose();
+        }
     });
 }
 
@@ -83,6 +86,14 @@ void UserPort::showSms(int id) {
 
 void UserPort::showSmsReceived(){
     gui.showNewSms();
+}
+
+void UserPort::showSmsCompose() {
+    IUeGui::ISmsComposeMode& smsGui = gui.setSmsComposeMode();
+    smsGui.clearSmsText();
+    gui.setRejectCallback([&](){
+        showConnected();
+    });
 }
 
 }
