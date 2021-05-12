@@ -29,6 +29,7 @@ private:
     common::PrefixedLogger logger;
     IUeGui& gui;
     common::PhoneNumber phoneNumber;
+    common::PhoneNumber foreignPhoneNumber;
     IUserEventsHandler* handler = nullptr;
 };
 

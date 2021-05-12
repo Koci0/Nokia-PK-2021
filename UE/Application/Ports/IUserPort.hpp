@@ -12,8 +12,8 @@ class IUserEventsHandler
 public:
     virtual ~IUserEventsHandler() = default;
 
-    virtual void handleCallRequestAccept(common::PhoneNumber fromPhoneNumber) = 0;
-    virtual void handleCallRequestReject(common::PhoneNumber fromPhoneNumber) = 0;
+    virtual void handleCallRequestAccept() = 0;
+    virtual void handleCallRequestReject() = 0;
 };
 
 class IUserPort

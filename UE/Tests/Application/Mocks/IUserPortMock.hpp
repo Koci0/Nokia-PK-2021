@@ -12,8 +12,8 @@ public:
     IUserEventsHandlerMock();
     ~IUserEventsHandlerMock() override;
 
-    MOCK_METHOD(void, handleCallRequestAccept, (common::PhoneNumber), (final));
-    MOCK_METHOD(void, handleCallRequestReject, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleCallRequestAccept, (), (final));
+    MOCK_METHOD(void, handleCallRequestReject, (), (final));
 };
 
 class IUserPortMock : public IUserPort
