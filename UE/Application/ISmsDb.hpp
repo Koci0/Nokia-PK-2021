@@ -15,10 +15,10 @@ public:
     //jeden specyficzny sms
     //dodanie sms
 
-    virtual std::vector<Sms> getAll()=0;
-    virtual Sms* getOne(int id)=0;
-    virtual void addOne(Sms sms)=0;
-    virtual void remove()=0;
+    virtual std::vector<Sms> getAll() = 0;
+    virtual Sms* getOne(int id) = 0;
+    virtual void addOne(Sms sms) = 0;
+    virtual void remove() = 0;
 
 };
 
