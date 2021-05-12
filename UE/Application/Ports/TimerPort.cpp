@@ -22,8 +22,8 @@ void TimerPort::stop()
 void TimerPort::startTimer(Duration duration)
 {
     logger.logDebug("Start timer: ", duration.count(), "ms");
-    this->running = true;
-    this->timer = std::async(&TimerPort::timerThread, this, duration);
+    running = true;
+    timer = std::async(&TimerPort::timerThread, this, duration);
 }
 
 void TimerPort::stopTimer()
