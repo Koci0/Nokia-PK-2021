@@ -50,7 +50,7 @@ void BaseState::handleCallAccepted()
     logger.logError("Unexpected: handleCallAccepted");
 }
 
-void BaseState::handleCallFailure(std::string)
+void BaseState::handleCallFailure(std::string &&)
 {
     logger.logError("Unexpected: handleCallFailure");
 }

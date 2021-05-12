@@ -19,7 +19,7 @@ public:
     void showConnecting() override;
     void showConnected() override;
     void setupCallReceiver() override;
-    void showShortInfo(std::string) override;
+    void showShortInfo(std::string &&) override;
 
 private:
     common::PrefixedLogger logger;

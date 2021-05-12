@@ -30,7 +30,7 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
     void handleCallAccepted() override;
-    void handleCallFailure(std::string) override;
+    void handleCallFailure(std::string &&) override;
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) override;

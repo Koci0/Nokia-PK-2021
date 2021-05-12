@@ -54,12 +54,14 @@ void UserPort::setupCallReceiver()
     auto& mode = gui.setDialMode();
     gui.setAcceptCallback([&](){
         logger.logInfo("to: ", mode.getPhoneNumber());
+        showShortInfo("Calling...");
         this->handler->handleSendCallRequest(mode.getPhoneNumber());
     });
 }
 
-void UserPort::showShortInfo(std::string message)
+void UserPort::showShortInfo(std::string &&message)
 {
+    // TODO Add timeout hiding message after few second even where the button is not pressed.
     logger.logDebug("showShortInfo - message:", message);
     auto& mode = gui.setAlertMode();
     mode.setText(message);
