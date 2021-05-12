@@ -55,14 +55,12 @@ void UserPort::showSmsList() {
     IUeGui::IListViewMode& menu = gui.setListViewMode();
     menu.clearSelectionList();
     std::vector<Sms> ListSms = db.getAll();
-    if(ListSms.empty()){
+    if(ListSms.empty()) {
         menu.addSelectionListItem("No SMS in DB", "");
-
     } else {
-        for(auto OneSms : ListSms){
-            menu.addSelectionListItem("From: "+to_string(OneSms.from),OneSms.text);
+        for(auto sms : ListSms) {
+            menu.addSelectionListItem("From: " + to_string(sms.from), sms.text);
         }
-
     }
 
     gui.setAcceptCallback([&](){
