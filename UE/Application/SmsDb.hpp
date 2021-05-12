@@ -12,7 +12,6 @@ class SmsDb : public ISmsDb
 private:
     std::vector<Sms> v_sms;
 
-
 public:
     SmsDb();
     SmsDb(std::vector<Sms>);
