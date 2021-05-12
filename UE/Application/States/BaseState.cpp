@@ -45,12 +45,12 @@ void BaseState::handleCallRequest(common::PhoneNumber)
     logger.logError("Unexpected: handleCallRequest");
 }
 
-void BaseState::handleCallRequestAccept(common::PhoneNumber)
+void BaseState::handleCallRequestAccept()
 {
     logger.logError("Unexpected: handleCallRequestAcept");
 }
 
-void BaseState::handleCallRequestReject(common::PhoneNumber)
+void BaseState::handleCallRequestReject()
 {
     logger.logError("Unexpected: handleCallRequestReject");
 }

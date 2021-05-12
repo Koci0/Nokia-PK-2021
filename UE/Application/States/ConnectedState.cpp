@@ -16,18 +16,28 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
+void ConnectedState::handleTimeout()
+{
+    logger.logInfo("ConnectedState::handleTimeout");
+    context.user.resetButtons();
+    context.user.showConnected();
+    context.bts.sendCallReject(context.callingPhoneNumber);
+    context.callingPhoneNumber.value = 0;
+}
+
 void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
 {
     logger.logInfo("ConnectedState::handleCallRequest");
-    context.user.showCallRequest(fromPhoneNumber);
+    context.callingPhoneNumber = fromPhoneNumber;
 
-    auto acceptButtonCallback = [this, fromPhoneNumber]() {
+    context.user.showCallRequest(context.callingPhoneNumber);
+    auto acceptButtonCallback = [this]() {
         logger.logInfo("handleCallRequestAccept()");
-        handleCallRequestAccept(fromPhoneNumber);
+        handleCallRequestAccept();
     };
-    auto rejectButtonCallback = [this, fromPhoneNumber]() {
+    auto rejectButtonCallback = [this]() {
         logger.logInfo("handleCallRequestReject()");
-        handleCallRequestReject(fromPhoneNumber);
+        handleCallRequestReject();
     };
     context.user.setupIncomingCallButtons(acceptButtonCallback, rejectButtonCallback);
 
@@ -35,21 +45,22 @@ void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
     context.timer.startTimer(30s);
 }
 
-void ConnectedState::handleCallRequestAccept(common::PhoneNumber fromPhoneNumber)
+void ConnectedState::handleCallRequestAccept()
 {
     logger.logInfo("ConnectedState::handleCallRequestAccept");
     context.timer.stopTimer();
     context.user.resetButtons();
-    context.setState<TalkingState>(fromPhoneNumber);
+    context.setState<TalkingState>(context.callingPhoneNumber);
 }
 
-void ConnectedState::handleCallRequestReject(common::PhoneNumber fromPhoneNumber)
+void ConnectedState::handleCallRequestReject()
 {
     logger.logInfo("ConnectedState::handleCalLRequestReject");
     context.timer.stopTimer();
     context.user.resetButtons();
     context.user.showConnected();
-    context.bts.sendCallReject(fromPhoneNumber);
+    context.bts.sendCallReject(context.callingPhoneNumber);
+    context.callingPhoneNumber.value = 0;
 }
 
 }

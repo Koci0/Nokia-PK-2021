@@ -22,8 +22,8 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
     void handleCallRequest(common::PhoneNumber) override;
-    void handleCallRequestAccept(common::PhoneNumber fromPhoneNumber) override;
-    void handleCallRequestReject(common::PhoneNumber fromPhoneNumber) override;
+    void handleCallRequestAccept() override;
+    void handleCallRequestReject() override;
 
 protected:
     Context& context;
