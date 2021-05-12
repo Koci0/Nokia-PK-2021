@@ -36,13 +36,13 @@ void TimerPort::stopTimer()
 void TimerPort::timerThread(Duration duration)
 {
     using namespace std::chrono_literals;
-    for(int i = duration / 100ms; i > -1; i--)
+    for(int i = duration / 100ms; i >= 0; i--)
     {
         std::this_thread::sleep_for(100ms);
         if (not running)
             return;
     }
-    logger.logError("Timeout");
+    logger.logInfo("Timeout");
     handler->handleTimeout();
 }
 
