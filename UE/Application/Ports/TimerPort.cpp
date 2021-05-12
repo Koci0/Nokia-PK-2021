@@ -29,8 +29,8 @@ void TimerPort::startTimer(Duration duration)
 void TimerPort::stopTimer()
 {
     logger.logDebug("Stop timer");
-    this->running = false;
-    this->timer.get();
+    running = false;
+    timer.get();
 }
 
 void TimerPort::timerThread(Duration duration)
