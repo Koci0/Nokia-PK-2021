@@ -29,10 +29,10 @@ void ConnectedState::handleCallAccepted()
     context.timer.stopTimer();
 }
 
-void ConnectedState::handleCallFailure(std::string message)
+void ConnectedState::handleCallFailure(std::string &&message)
 {
     logger.logInfo("ConnectedState: handleCallFailure");
-    context.user.showShortInfo(message);
+    context.user.showShortInfo(std::move(message));
     context.timer.stopTimer();
 }
 
