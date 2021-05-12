@@ -31,6 +31,7 @@ public:
     void showSmsNew() override;
     void showSmsList() override;
     void showSms(int id) override;
+    void showSmsCompose() override;
 
 private:
     common::PrefixedLogger logger;

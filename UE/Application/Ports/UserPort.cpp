@@ -4,6 +4,7 @@
 #include "UeGui/IDialMode.hpp"
 #include "UeGui/ITextMode.hpp"
 #include "UeGui/ITextMode.hpp"
+#include "UeGui/ISmsComposeMode.hpp"
 #include "Sms.hpp"
 #include "ISmsDb.hpp"
 #include <string>
@@ -54,6 +55,9 @@ void UserPort::showConnected()
         } else if(menu.getCurrentItemIndex().second == 2){
             setupCallReceiver();
         };
+        } else if (menu.getCurrentItemIndex().second == 0) {
+            showSmsCompose();
+        }
     });
 }
 
@@ -149,6 +153,12 @@ void UserPort::showPeerUserDisconnected()
 {
     logger.logInfo("UserPort::showPeerUserDisconnected");
     showShortInfo("Peer User was disconnected from BTS");
+void UserPort::showSmsCompose() {
+    IUeGui::ISmsComposeMode& smsGui = gui.setSmsComposeMode();
+    smsGui.clearSmsText();
+    gui.setRejectCallback([&](){
+        showConnected();
+    });
 }
 
 }

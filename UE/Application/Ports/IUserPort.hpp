@@ -42,6 +42,7 @@ public:
     virtual void showTalking() = 0;
     virtual void showPeerUserDisconnected() = 0;
 
+    virtual void showSmsCompose() = 0;
 };
 
 }
