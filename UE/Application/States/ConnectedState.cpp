@@ -32,7 +32,7 @@ void ConnectedState::handleCallAccepted()
 void ConnectedState::handleCallFailure(std::string message)
 {
     logger.logInfo("ConnectedState: handleCallFailure");
-    context.user.showShortInfo(message);
+    context.user.showShortInfo((std::basic_string<char>) message);
     context.timer.stopTimer();
 }
 
