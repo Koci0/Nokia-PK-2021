@@ -29,9 +29,9 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
-    void handleCallRequest(common::PhoneNumber fromPhoneNumber) override;
-    void handleCallRequestAccept(common::PhoneNumber fromPhoneNumber) override;
-    void handleCallRequestReject(common::PhoneNumber fromPhoneNumber) override;
+    void handleCallRequest(common::PhoneNumber callingPhoneNumber) override;
+    void handleCallRequestAccept() override;
+    void handleCallRequestReject() override;
     void handleUnknownRecipient(common::PhoneNumber callingPhoneNumber) override;
 
 private:

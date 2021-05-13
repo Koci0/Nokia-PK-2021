@@ -63,8 +63,7 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         case common::MessageId::UnknownRecipient:
         {
-            auto callingPhoneNumber = reader.readPhoneNumber();
-            handler->handleUnknownRecipient(callingPhoneNumber);
+            handler->handleUnknownRecipient(from);
             break;
         }
         default:

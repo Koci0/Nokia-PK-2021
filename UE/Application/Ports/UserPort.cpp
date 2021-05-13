@@ -41,11 +41,11 @@ void UserPort::showConnected()
     menu.addSelectionListItem("View SMS", "");
 }
 
-void UserPort::showCallRequest(common::PhoneNumber fromPhoneNumber)
+void UserPort::showCallRequest(common::PhoneNumber callingPhoneNumber)
 {
     logger.logInfo("UserPort::showCalLRequest");
     IUeGui::ITextMode& alertMode = gui.setAlertMode();
-    alertMode.setText("Incoming call from: " + to_string(fromPhoneNumber));
+    alertMode.setText("Incoming call from: " + to_string(callingPhoneNumber));
 }
 
 void UserPort::resetButtons()

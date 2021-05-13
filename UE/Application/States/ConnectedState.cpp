@@ -25,10 +25,10 @@ void ConnectedState::handleTimeout()
     context.callingPhoneNumber.value = 0;
 }
 
-void ConnectedState::handleCallRequest(common::PhoneNumber fromPhoneNumber)
+void ConnectedState::handleCallRequest(common::PhoneNumber callingPhoneNumber)
 {
     logger.logInfo("ConnectedState::handleCallRequest");
-    context.callingPhoneNumber = fromPhoneNumber;
+    context.callingPhoneNumber = callingPhoneNumber;
 
     context.user.showCallRequest(context.callingPhoneNumber);
     auto acceptButtonCallback = [this]() {

@@ -39,7 +39,6 @@ void Application::handleSib(common::BtsId btsId)
 void Application::handleAttachAccept()
 {
     context.state->handleAttachAccept();
-    context.state->handleCallRequest(common::PhoneNumber{1});
 }
 
 void Application::handleAttachReject()
@@ -47,9 +46,9 @@ void Application::handleAttachReject()
     context.state->handleAttachReject();
 }
 
-void Application::handleCallRequest(common::PhoneNumber fromPhoneNumber)
+void Application::handleCallRequest(common::PhoneNumber callingPhoneNumber)
 {
-    context.state->handleCallRequest(fromPhoneNumber);
+    context.state->handleCallRequest(callingPhoneNumber);
 }
 
 void Application::handleCallRequestAccept()
