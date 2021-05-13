@@ -32,6 +32,7 @@ public:
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber) override;
     void handleCallRequestResignation() override;
+    void handleSmsSend(Sms& sms) override;
 
 protected:
     Context& context;

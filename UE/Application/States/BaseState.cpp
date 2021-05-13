@@ -83,6 +83,9 @@ void BaseState::handleCallFailure(std::string &&)
 void BaseState::handleCallRequestResignation()
 {
     logger.logError("Unexpected: handleCallRequestResignation");
+void BaseState::handleSmsSend(Sms &sms)
+{
+    logger.logError("Unexpected: handleSmsSend");
 }
 
 }

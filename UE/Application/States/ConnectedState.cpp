@@ -103,6 +103,9 @@ void ConnectedState::handleCallRequestResignation()
     context.timer.stopTimer();
     context.bts.sendCallDropped(context.callingPhoneNumber);
     context.user.showShortInfo("You dropped a call.");
+void ConnectedState::handleSmsSend(Sms &sms)
+{
+    context.bts.handleMessageSend(sms);
 }
 
 }

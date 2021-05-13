@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Sms.hpp"
 #include "BaseState.hpp"
 
 namespace ue
@@ -28,6 +29,7 @@ public:
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) final;
     void handleCallRequestResignation() final;
+    void handleSmsSend(Sms& sms) final;
 };
 
 }

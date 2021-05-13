@@ -31,6 +31,7 @@ public:
     virtual void sendCallAccept(common::PhoneNumber) = 0;
     virtual void sendCallRequest(common::PhoneNumber) = 0;
     virtual void sendCallDropped(common::PhoneNumber) = 0;
+    virtual void handleMessageSend(Sms& sms) = 0;
 };
 
 }
