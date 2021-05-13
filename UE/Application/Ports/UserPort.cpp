@@ -67,4 +67,14 @@ void UserPort::showTalking()
     gui.setCallMode();
 }
 
+void UserPort::showPeerUserDisconnected()
+{
+    logger.logInfo("UserPort::showPeerUserDisconnected");
+    showShortInfo("Peer User was disconnected from BTS");
+}
+
+void UserPort::showShortInfo(std::string &&message)
+{
+}
+
 }

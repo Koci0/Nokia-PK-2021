@@ -115,4 +115,14 @@ TEST_F(BtsPortTestSuite, shallSendCallReject)
     ASSERT_NO_THROW(EXPECT_EQ(toPhoneNumber, reader.readPhoneNumber()));
 }
 
+TEST_F(BtsPortTestSuite, shallHandleUnknownRecipient)
+{
+    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
+    common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    msg.writeNumber(false);
+    messageCallback(msg.getMessage());
+}
+
 }
