@@ -22,6 +22,7 @@ public:
     virtual ~IBtsPort() = default;
 
     virtual void sendAttachRequest(common::BtsId) = 0;
+    virtual void handleMessageSend(Sms& sms) = 0;
 };
 
 }

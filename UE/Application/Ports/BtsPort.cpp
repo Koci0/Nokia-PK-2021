@@ -1,6 +1,7 @@
 #include "BtsPort.hpp"
 #include "Messages/IncomingMessage.hpp"
 #include "Messages/OutgoingMessage.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {
@@ -78,6 +79,14 @@ void BtsPort::sendAttachRequest(common::BtsId btsId)
     transport.sendMessage(msg.getMessage());
 
 
+}
+
+void BtsPort::handleMessageSend(Sms &sms)
+{
+    logger.logInfo("sms send from:"+sms.from+" to:"+sms.to);
+    common::OutgoingMessage smsSendMsg{common::MessageId::Sms, sms.to, sms.from};
+    smsSendMsg.writeText(sms.text);
+    transport.sendMessage(smsSendMsg.getMessage());
 }
 
 }

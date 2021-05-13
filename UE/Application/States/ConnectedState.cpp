@@ -15,4 +15,9 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
+void ConnectedState::handleSmsSend(Sms &sms)
+{
+    context.bts.handleMessageSend(sms);
+}
+
 }

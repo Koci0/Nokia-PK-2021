@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Sms.hpp"
 #include "BaseState.hpp"
 
 namespace ue
@@ -13,6 +14,9 @@ public:
     // IBtsEventsHandler interface
 public:
     void handleDisconnected() final;
+
+    // IUserEventsHandler interface
+    void handleSmsSend(Sms& sms) final;
 };
 
 }
