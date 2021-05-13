@@ -24,12 +24,18 @@ public:
     virtual void showNotConnected() = 0;
     virtual void showConnecting() = 0;
     virtual void showConnected() = 0;
+
+    virtual void showSmsReceived() = 0;
+    virtual void showSmsList() = 0;
+    virtual void showSms(int id) = 0;
+
     virtual void showCallRequest(common::PhoneNumber) = 0;
     virtual void resetButtons() = 0;
     virtual void setupIncomingCallButtons(std::function<void()>, std::function<void()>) = 0;
     virtual void showTalking() = 0;
     virtual void showPeerUserDisconnected() = 0;
     virtual void showShortInfo(std::string &&message) = 0;
+
 };
 
 }

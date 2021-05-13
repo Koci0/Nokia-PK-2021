@@ -1,10 +1,6 @@
 name: C/C++ CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
@@ -31,7 +27,4 @@ jobs:
 
     - name: UT for UeApplication
       run: make UeApplicationUT
-
-    - name: next steps
-      run: echo "Here you can add next steps"
 

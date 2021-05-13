@@ -6,6 +6,7 @@
 #include "Mocks/IUserPortMock.hpp"
 #include "Messages/PhoneNumber.hpp"
 #include "Mocks/IUeGuiMock.hpp"
+#include "Mocks/ISmsDbMock.hpp"
 
 namespace ue
 {
@@ -19,10 +20,11 @@ protected:
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
+    StrictMock<ISmsDbMock> smsDbMock;
     StrictMock<ITextModeMock> textModeMock;
     StrictMock<ICallModeMock> callModeMock;
 
-    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER};
+    UserPort objectUnderTest{loggerMock, guiMock, PHONE_NUMBER, smsDbMock};
 
     UserPortTestSuite()
     {
@@ -56,6 +58,7 @@ TEST_F(UserPortTestSuite, shallShowMenuOnConnected)
     EXPECT_CALL(guiMock, setListViewMode()).WillOnce(ReturnRef(listViewModeMock));
     EXPECT_CALL(listViewModeMock, clearSelectionList());
     EXPECT_CALL(listViewModeMock, addSelectionListItem(_, _)).Times(AtLeast(1));
+    EXPECT_CALL(guiMock, setAcceptCallback(_));
     objectUnderTest.showConnected();
 }
 

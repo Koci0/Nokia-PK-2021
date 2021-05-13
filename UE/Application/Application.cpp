@@ -8,7 +8,8 @@ Application::Application(common::PhoneNumber phoneNumber,
                          common::ILogger &iLogger,
                          IBtsPort &bts,
                          IUserPort &user,
-                         ITimerPort &timer)
+                         ITimerPort &timer,
+                         ISmsDb &smsDB)
     : context{iLogger, bts, user, timer},
       logger(iLogger, "[APP] ")
 {
