@@ -27,6 +27,7 @@ public:
     virtual void setupCallReceiver() = 0;
     using InternalMethod = std::function<void(IUserPort*)>;
     virtual void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) = 0;
+    virtual void callRequestResignation() = 0;
 };
 
 }

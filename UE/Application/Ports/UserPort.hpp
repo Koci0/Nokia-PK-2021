@@ -20,6 +20,7 @@ public:
     void showConnected() override;
     void setupCallReceiver() override;
     void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) override;
+    void callRequestResignation() override;
 
 private:
     common::PrefixedLogger logger;

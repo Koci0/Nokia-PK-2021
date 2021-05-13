@@ -45,7 +45,9 @@ void ConnectedState::handleTimeout()
 void ConnectedState::handleCallRequestResignation()
 {
     logger.logInfo("ConnectedState: handleCallRequestResignation");
+    context.timer.stopTimer();
     context.bts.sendCallDropped();
+    context.user.showShortInfo("You dropped a call.");
 }
 
 }

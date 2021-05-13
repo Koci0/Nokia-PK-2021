@@ -54,7 +54,7 @@ void UserPort::setupCallReceiver()
     auto& mode = gui.setDialMode();
     gui.setAcceptCallback([&]{
         logger.logInfo("to: ", mode.getPhoneNumber());
-        showShortInfo("Calling...");
+        showShortInfo("Calling...", &IUserPort::callRequestResignation);
         this->handler->handleSendCallRequest(mode.getPhoneNumber());
     });
 }
@@ -68,6 +68,12 @@ void UserPort::showShortInfo(std::string &&message, InternalMethod onRejectFunct
     gui.setRejectCallback([this, onRejectFunction]{
         onRejectFunction(this);
     });
+}
+
+void UserPort::callRequestResignation()
+{
+    logger.logInfo("user resignation");
+    this->handler->handleCallRequestResignation();
 }
 
 }
