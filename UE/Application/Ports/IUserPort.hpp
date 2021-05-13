@@ -2,6 +2,8 @@
 
 #include "Messages/PhoneNumber.hpp"
 
+#include <functional>
+
 namespace ue
 {
 
@@ -22,7 +24,8 @@ public:
     virtual void showConnecting() = 0;
     virtual void showConnected() = 0;
     virtual void setupCallReceiver() = 0;
-    virtual void showShortInfo(std::string &&) = 0;
+    using InternalMethod = std::function<void(IUserPort*)>;
+    virtual void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) = 0;
 };
 
 }
