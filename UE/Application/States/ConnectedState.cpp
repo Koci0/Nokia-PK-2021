@@ -42,4 +42,10 @@ void ConnectedState::handleTimeout()
     context.user.showShortInfo("Timeout.");
 }
 
+void ConnectedState::handleCallRequestResignation()
+{
+    logger.logInfo("ConnectedState: handleCallRequestResignation");
+    context.bts.sendCallDropped();
+}
+
 }

@@ -26,6 +26,7 @@ public:
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber) override;
+    void handleCallRequestResignation() override;
 
 protected:
     Context& context;

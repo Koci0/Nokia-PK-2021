@@ -61,4 +61,9 @@ void Application::handleCallFailure(std::string &&message)
     context.state->handleCallFailure(std::move(message));
 }
 
+void Application::handleCallRequestResignation()
+{
+    context.state->handleCallRequestResignation();
+}
+
 }

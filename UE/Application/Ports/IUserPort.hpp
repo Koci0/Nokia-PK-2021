@@ -13,6 +13,7 @@ public:
     virtual ~IUserEventsHandler() = default;
 
     virtual void handleSendCallRequest(common::PhoneNumber to) = 0;
+    virtual void handleCallRequestResignation() = 0;
 };
 
 class IUserPort
