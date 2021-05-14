@@ -140,4 +140,13 @@ TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
     messageCallback(msg.getMessage());
 }
 
+TEST_F(BtsPortTestSuite, shallSendCallDropped)
+{
+    common::OutgoingMessage msg = {common::MessageId::CallDropped,
+                                   PHONE_NUMBER,
+                                   PHONE_NUMBER};
+    EXPECT_CALL(transportMock, sendMessage(_));
+    objectUnderTest.sendCallDropped();
+}
+
 }

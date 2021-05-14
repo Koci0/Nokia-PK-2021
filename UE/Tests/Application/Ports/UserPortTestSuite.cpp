@@ -75,4 +75,10 @@ TEST_F(UserPortTestSuite, shallInformUserInAlertMode)
     objectUnderTest.showShortInfo("_");
 }
 
+TEST_F(UserPortTestSuite, shallHandleCallRequestResignation)
+{
+    EXPECT_CALL(handlerMock, handleCallRequestResignation());
+    objectUnderTest.callRequestResignation();
+}
+
 }
