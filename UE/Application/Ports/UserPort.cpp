@@ -52,22 +52,28 @@ void UserPort::setupCallReceiver()
 {
     logger.logInfo("setup call receiver");
     auto& mode = gui.setDialMode();
-    gui.setAcceptCallback([&](){
+    gui.setAcceptCallback([&]{
         logger.logInfo("to: ", mode.getPhoneNumber());
-        showShortInfo("Calling...");
+        showShortInfo("Calling...", &IUserPort::callRequestResignation);
         this->handler->handleSendCallRequest(mode.getPhoneNumber());
     });
 }
 
-void UserPort::showShortInfo(std::string &&message)
+void UserPort::showShortInfo(std::string &&message, InternalMethod onRejectFunction)
 {
     // TODO Add timeout hiding message after few second even where the button is not pressed.
     logger.logDebug("showShortInfo - message:", message);
     auto& mode = gui.setAlertMode();
-    mode.setText(message);
-    gui.setRejectCallback([&](){
-        showConnected();
+    mode.setText(std::move(message));
+    gui.setRejectCallback([this, onRejectFunction]{
+        onRejectFunction(this);
     });
+}
+
+void UserPort::callRequestResignation()
+{
+    logger.logInfo("user resignation");
+    this->handler->handleCallRequestResignation();
 }
 
 }

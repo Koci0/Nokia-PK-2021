@@ -22,6 +22,7 @@ public:
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) final;
+    void handleCallRequestResignation() final;
 };
 
 }

@@ -26,6 +26,7 @@ public:
 
     virtual void sendAttachRequest(common::BtsId) = 0;
     virtual void sendCallRequest(common::PhoneNumber) = 0;
+    virtual void sendCallDropped() = 0;
 };
 
 }
