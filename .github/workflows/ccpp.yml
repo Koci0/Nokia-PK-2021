@@ -1,10 +1,6 @@
 name: C/C++ CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
@@ -23,15 +19,18 @@ jobs:
     - name: UT for BtsApplication
       run: make BtsApplicationUT 
 
-    - name: run BTS ut
+    - name: Run BTS UTs
       run: ./BTS/Tests/Application/BtsApplicationUT
 
     - name: UT for COMMON
       run: make COMMON_UT
 
+    - name: Run COMMON UTs
+      run: ./COMMON/Tests/COMMON_UT
+
     - name: UT for UeApplication
       run: make UeApplicationUT
 
-    - name: next steps
-      run: echo "Here you can add next steps"
+    - name: Run UE UTs
+      run: ./UE/Tests/Application/UeApplicationUT
 
