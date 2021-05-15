@@ -5,15 +5,7 @@
 namespace ue
 {
 SmsDb::SmsDb()
-{
-    std::vector<Sms> vec;
-    // TODO: remove debug vector
-    //init vector for debug purpose
-    std::string s1 = "Alamakota";
-    this->v_sms = vec;
-    const common::PhoneNumber number{11};
-    v_sms.push_back(Sms(number, s1));
-}
+{}
 
 SmsDb::SmsDb(std::vector<Sms> v_sms)
 {
