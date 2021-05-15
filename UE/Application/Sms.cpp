@@ -8,7 +8,7 @@ Sms::Sms(common::PhoneNumber from, std::string text)
     : from(from),
       text(text)
 {
-    this->read = false;
+    read = false;
 }
 
 }
