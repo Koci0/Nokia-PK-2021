@@ -65,7 +65,6 @@ void UserPort::showSmsList() {
             showSms(menu.getCurrentItemIndex().second);
         });
     }
-
     gui.setRejectCallback([&](){
         showConnected();
     });
