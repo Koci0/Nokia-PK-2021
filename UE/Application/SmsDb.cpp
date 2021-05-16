@@ -4,8 +4,6 @@
 
 namespace ue
 {
-SmsDb::SmsDb()
-{}
 
 SmsDb::SmsDb(std::vector<Sms> v_sms)
 {

@@ -40,7 +40,7 @@ void BaseState::handleAttachReject()
     logger.logError("Uexpected: handleAttachReject");
 }
 
-void BaseState::handleSmsReceived(common::PhoneNumber, std::string)
+void BaseState::handleSmsReceived(common::PhoneNumber, std::string&)
 {
     logger.logError("Unexpected: handleSmsReceived");
 }

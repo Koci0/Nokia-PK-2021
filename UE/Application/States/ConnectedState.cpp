@@ -15,7 +15,7 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
-void ConnectedState::handleSmsReceived(common::PhoneNumber from, std::string text)
+void ConnectedState::handleSmsReceived(common::PhoneNumber from, std::string &text)
 {
     Sms sms(from,text);
     context.db.addOne(sms);

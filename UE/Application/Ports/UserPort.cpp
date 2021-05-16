@@ -61,11 +61,11 @@ void UserPort::showSmsList() {
         for(auto sms : ListSms) {
             menu.addSelectionListItem("From: " + to_string(sms.from), sms.text);
         }
+        gui.setAcceptCallback([&](){
+            showSms(menu.getCurrentItemIndex().second);
+        });
     }
 
-    gui.setAcceptCallback([&](){
-        showSms(menu.getCurrentItemIndex().second);;
-    });
     gui.setRejectCallback([&](){
         showConnected();
     });

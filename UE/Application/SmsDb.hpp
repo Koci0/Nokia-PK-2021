@@ -13,7 +13,7 @@ private:
     std::vector<Sms> v_sms;
 
 public:
-    SmsDb();
+    SmsDb() = default;
     SmsDb(std::vector<Sms>);
 
     std::vector<Sms> getAll() override;

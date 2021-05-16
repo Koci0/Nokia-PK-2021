@@ -47,7 +47,7 @@ void Application::handleAttachReject()
     context.state->handleAttachReject();
 }
 
-void Application::handleSmsReceived(common::PhoneNumber from, std::string text)
+void Application::handleSmsReceived(common::PhoneNumber from, std::string &text)
 {
     context.state->handleSmsReceived(from, text);
 }
