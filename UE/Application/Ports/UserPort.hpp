@@ -19,6 +19,9 @@ public:
     void showNotConnected() override;
     void showConnecting() override;
     void showConnected() override;
+    void setupCallReceiver() override;
+    void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) override;
+    void callRequestResignation() override;
 
     void showSmsReceived() override;
     void showSmsList() override;

@@ -21,6 +21,12 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+    void handleCallAccepted() override;
+    void handleCallFailure(std::string &&) override;
+
+    // IUserEventsHandler interface
+    void handleSendCallRequest(common::PhoneNumber) override;
+    void handleCallRequestResignation() override;
 
 protected:
     Context& context;

@@ -47,4 +47,24 @@ void Application::handleAttachReject()
     context.state->handleAttachReject();
 }
 
+void Application::handleSendCallRequest(common::PhoneNumber to)
+{
+    context.state->handleSendCallRequest(to);
+}
+
+void Application::handleCallAccepted()
+{
+    context.state->handleCallAccepted();
+}
+
+void Application::handleCallFailure(std::string &&message)
+{
+    context.state->handleCallFailure(std::move(message));
+}
+
+void Application::handleCallRequestResignation()
+{
+    context.state->handleCallRequestResignation();
+}
+
 }
