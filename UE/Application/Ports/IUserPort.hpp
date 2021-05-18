@@ -3,6 +3,7 @@
 #include <functional>
 
 #include "Messages/PhoneNumber.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {

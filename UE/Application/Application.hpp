@@ -43,6 +43,7 @@ public:
     void handleSendCallRequest(common::PhoneNumber to) override;
     void handleCallRequestResignation() override;
 
+    void handleSmsSend(Sms &sms) override;
 private:
     Context context;
     common::PrefixedLogger logger;

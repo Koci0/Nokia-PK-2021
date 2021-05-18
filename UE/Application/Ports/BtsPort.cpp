@@ -137,7 +137,7 @@ void BtsPort::sendCallRequest(common::PhoneNumber to)
 
 void BtsPort::handleMessageSend(Sms &sms)
 {
-    logger.logInfo("sms send from:"+sms.from+" to:"+sms.to);
+    //logger.logInfo("sms send from:"+sms.from+" to:"+sms.to);
     common::OutgoingMessage smsSendMsg{common::MessageId::Sms, sms.to, sms.from};
     smsSendMsg.writeText(sms.text);
     transport.sendMessage(smsSendMsg.getMessage());
