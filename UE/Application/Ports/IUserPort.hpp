@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Messages/PhoneNumber.hpp"
-
 #include <functional>
+
+#include "Messages/PhoneNumber.hpp"
 
 namespace ue
 {
@@ -12,6 +12,8 @@ class IUserEventsHandler
 public:
     virtual ~IUserEventsHandler() = default;
 
+    virtual void handleCallRequestAccept() = 0;
+    virtual void handleCallRequestReject() = 0;
     virtual void handleSendCallRequest(common::PhoneNumber to) = 0;
     virtual void handleCallRequestResignation() = 0;
 };
@@ -33,6 +35,13 @@ public:
     virtual void showSmsReceived() = 0;
     virtual void showSmsList() = 0;
     virtual void showSms(int id) = 0;
+
+    virtual void showCallRequest(common::PhoneNumber) = 0;
+    virtual void resetButtons() = 0;
+    virtual void setupIncomingCallButtons(std::function<void()>, std::function<void()>) = 0;
+    virtual void showTalking() = 0;
+    virtual void showPeerUserDisconnected() = 0;
+
 };
 
 }

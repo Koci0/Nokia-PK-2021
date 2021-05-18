@@ -104,6 +104,28 @@ TEST_F(BtsPortTestSuite, shallSendAttachRequest)
     ASSERT_NO_THROW(reader.checkEndOfMessage());
 }
 
+TEST_F(BtsPortTestSuite, shallSendCallReject)
+{
+    common::BinaryMessage msg;
+    common::PhoneNumber toPhoneNumber{1};
+    EXPECT_CALL(transportMock, sendMessage(_)).WillOnce([&msg](auto param) { msg = std::move(param); return true; });
+    objectUnderTest.sendCallDropped(toPhoneNumber);
+    common::IncomingMessage reader(msg);
+    ASSERT_NO_THROW(EXPECT_EQ(common::MessageId::CallDropped, reader.readMessageId()));
+    ASSERT_NO_THROW(EXPECT_EQ(PHONE_NUMBER, reader.readPhoneNumber()));
+    ASSERT_NO_THROW(EXPECT_EQ(toPhoneNumber, reader.readPhoneNumber()));
+}
+
+TEST_F(BtsPortTestSuite, shallHandleUnknownRecipient)
+{
+    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
+    common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    msg.writeNumber(false);
+    messageCallback(msg.getMessage());
+}
+
 TEST_F(BtsPortTestSuite, shallSendCallRequest)
 {
     common::OutgoingMessage msg = {common::MessageId::AttachRequest,
@@ -133,7 +155,7 @@ TEST_F(BtsPortTestSuite, shallHandleCallDropped)
 
 TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
 {
-    EXPECT_CALL(handlerMock, handleCallFailure(_));
+    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
     common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
@@ -142,11 +164,11 @@ TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
 
 TEST_F(BtsPortTestSuite, shallSendCallDropped)
 {
+    EXPECT_CALL(transportMock, sendMessage(_));
     common::OutgoingMessage msg = {common::MessageId::CallDropped,
                                    PHONE_NUMBER,
                                    PHONE_NUMBER};
-    EXPECT_CALL(transportMock, sendMessage(_));
-    objectUnderTest.sendCallDropped();
+    objectUnderTest.sendCallDropped(PHONE_NUMBER);
 }
 
 }

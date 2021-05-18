@@ -47,6 +47,26 @@ void Application::handleAttachReject()
     context.state->handleAttachReject();
 }
 
+void Application::handleCallRequest(common::PhoneNumber callingPhoneNumber)
+{
+    context.state->handleCallRequest(callingPhoneNumber);
+}
+
+void Application::handleCallRequestAccept()
+{
+    context.state->handleCallRequestAccept();
+}
+
+void Application::handleCallRequestReject()
+{
+    context.state->handleCallRequestReject();
+}
+
+void Application::handleUnknownRecipient(common::PhoneNumber callingPhoneNumber)
+{
+    context.state->handleUnknownRecipient(callingPhoneNumber);
+}
+
 void Application::handleSendCallRequest(common::PhoneNumber to)
 {
     context.state->handleSendCallRequest(to);

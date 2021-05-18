@@ -1,4 +1,5 @@
 #include "UserPort.hpp"
+#include "UeGui/ICallMode.hpp"
 #include "UeGui/IListViewMode.hpp"
 #include "UeGui/IDialMode.hpp"
 #include "UeGui/ITextMode.hpp"
@@ -117,6 +118,38 @@ void UserPort::showSms(int id) {
 
 void UserPort::showSmsReceived(){
     gui.showNewSms();
+}
+
+void UserPort::showCallRequest(common::PhoneNumber callingPhoneNumber)
+{
+    logger.logInfo("UserPort::showCalLRequest");
+    IUeGui::ITextMode& alertMode = gui.setAlertMode();
+    alertMode.setText("Incoming call from: " + to_string(callingPhoneNumber));
+}
+
+void UserPort::resetButtons()
+{
+    gui.setAcceptCallback(nullptr);
+    gui.setRejectCallback(nullptr);
+}
+
+void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallback, std::function<void()> rejectButtonCallback)
+{
+    logger.logInfo("UserPort::setupIncomingCallButtons");
+    gui.setAcceptCallback(acceptButtonCallback);
+    gui.setRejectCallback(rejectButtonCallback);
+}
+
+void UserPort::showTalking()
+{
+    logger.logInfo("UserPort::showTalking");
+    gui.setCallMode();
+}
+
+void UserPort::showPeerUserDisconnected()
+{
+    logger.logInfo("UserPort::showPeerUserDisconnected");
+    showShortInfo("Peer User was disconnected from BTS");
 }
 
 }

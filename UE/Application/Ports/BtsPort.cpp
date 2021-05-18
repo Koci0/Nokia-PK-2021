@@ -56,6 +56,10 @@ void BtsPort::handleMessage(BinaryMessage msg)
                 handler->handleAttachReject();
             break;
         }
+        case common::MessageId::CallRequest:
+        {
+            handler->handleCallRequest(from);
+        }
         case common::MessageId::CallAccepted:
         {
             logger.logInfo("BTS handleMessage: CallAccepted");
@@ -71,7 +75,7 @@ void BtsPort::handleMessage(BinaryMessage msg)
         case common::MessageId::UnknownRecipient:
         {
             logger.logInfo("BTS handleMessage: UnknownRecipient");
-            handler->handleCallFailure("User is not connected.");
+            handler->handleUnknownRecipient(from);
             break;
         }
         default:
@@ -85,7 +89,6 @@ void BtsPort::handleMessage(BinaryMessage msg)
     }
 }
 
-
 void BtsPort::sendAttachRequest(common::BtsId btsId)
 {
     logger.logDebug("sendAttachRequest: ", btsId);
@@ -94,8 +97,24 @@ void BtsPort::sendAttachRequest(common::BtsId btsId)
                                 common::PhoneNumber{}};
     msg.writeBtsId(btsId);
     transport.sendMessage(msg.getMessage());
+}
 
+void BtsPort::sendCallAccept(common::PhoneNumber toPhoneNumber)
+{
+    logger.logInfo("BtsPort::sendCallAccept: ", to_string(toPhoneNumber));
+    common::OutgoingMessage msg{common::MessageId::CallAccepted,
+                                phoneNumber,
+                                toPhoneNumber};
+    transport.sendMessage(msg.getMessage());
+}
 
+void BtsPort::sendCallDropped(common::PhoneNumber toPhoneNumber)
+{
+    logger.logInfo("BtsPort::sendCallReject: ", to_string(toPhoneNumber));
+    common::OutgoingMessage msg{common::MessageId::CallDropped,
+                                phoneNumber,
+                                toPhoneNumber};
+    transport.sendMessage(msg.getMessage());
 }
 
 void BtsPort::sendCallRequest(common::PhoneNumber to)
@@ -104,15 +123,6 @@ void BtsPort::sendCallRequest(common::PhoneNumber to)
     common::OutgoingMessage msg{common::MessageId::CallRequest,
                                 phoneNumber,
                                 to};
-    transport.sendMessage(msg.getMessage());
-}
-
-void BtsPort::sendCallDropped()
-{
-    logger.logDebug("sendCallDropped");
-    common::OutgoingMessage msg{common::MessageId::CallDropped,
-                                phoneNumber,
-                                common::PhoneNumber{}};
     transport.sendMessage(msg.getMessage());
 }
 

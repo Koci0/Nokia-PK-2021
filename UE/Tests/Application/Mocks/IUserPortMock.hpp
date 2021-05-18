@@ -12,6 +12,8 @@ public:
     IUserEventsHandlerMock();
     ~IUserEventsHandlerMock() override;
 
+    MOCK_METHOD(void, handleCallRequestAccept, (), (final));
+    MOCK_METHOD(void, handleCallRequestReject, (), (final));
     MOCK_METHOD(void, handleSendCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallRequestResignation, (), (final));
 };
@@ -33,6 +35,12 @@ public:
     MOCK_METHOD(void, showSms, (int), (final));
     MOCK_METHOD(void, showSmsList, (), (final));
     MOCK_METHOD(void, showSmsReceived, (), (final));
+
+    MOCK_METHOD(void, showCallRequest, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, resetButtons, (), (final));
+    MOCK_METHOD(void, setupIncomingCallButtons, (std::function<void()>, std::function<void()>), (final));
+    MOCK_METHOD(void, showTalking, (), (final));
+    MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
 };
 
 }
