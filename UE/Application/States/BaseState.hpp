@@ -34,7 +34,7 @@ public:
     void handleSendCallRequest(common::PhoneNumber) override;
     void handleCallRequestResignation() override;
     void handleSmsSend(Sms& sms) override;
-
+    void markSmsAsFailed() override;
 protected:
     Context& context;
     common::PrefixedLogger logger;

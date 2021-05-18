@@ -11,12 +11,12 @@ using common::PhoneNumber;
 class Sms
 {
 public:
-    Sms(PhoneNumber from, std::string text);
+    Sms(PhoneNumber from,PhoneNumber to, std::string text);
     int messageId;
     std::string text;
     PhoneNumber from, to;
     bool read;
-
+    bool isFailed;
 };
 
 inline bool operator==(const Sms& left, const Sms& right)

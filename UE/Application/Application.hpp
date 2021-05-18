@@ -44,6 +44,7 @@ public:
     void handleCallRequestResignation() override;
 
     void handleSmsSend(Sms &sms) override;
+    void markSmsAsFailed() override;
 private:
     Context context;
     common::PrefixedLogger logger;

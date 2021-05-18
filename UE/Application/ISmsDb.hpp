@@ -15,7 +15,7 @@ public:
     virtual Sms* getOne(int id) = 0;
     virtual void addOne(Sms sms) = 0;
     virtual void remove() = 0;
-
+    virtual Sms* getLast() = 0;
 };
 
 

@@ -159,6 +159,15 @@ void UserPort::showSmsCompose() {
     gui.setRejectCallback([&](){
         showConnected();
     });
+    gui.setAcceptCallback([&](){
+        Sms sms{smsGui.getPhoneNumber(),phoneNumber, smsGui.getSmsText()};
+        if(sms.from == sms.to)
+            return;
+
+        db.addOne(sms);
+        handler->handleSmsSend(sms);
+        showConnected();
+    });
 }
 
 }
