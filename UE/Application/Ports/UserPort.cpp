@@ -1,6 +1,8 @@
 #include "UserPort.hpp"
 #include "UeGui/ICallMode.hpp"
 #include "UeGui/IListViewMode.hpp"
+#include "UeGui/IDialMode.hpp"
+#include "UeGui/ITextMode.hpp"
 #include "UeGui/ITextMode.hpp"
 #include "Sms.hpp"
 #include "ISmsDb.hpp"
@@ -44,11 +46,43 @@ void UserPort::showConnected()
     menu.clearSelectionList();
     menu.addSelectionListItem("Compose SMS", "");
     menu.addSelectionListItem("View SMS", "");
+    menu.addSelectionListItem("Call", "");
+
     gui.setAcceptCallback([&](){
         if(menu.getCurrentItemIndex().second == 1){
             showSmsList();
+        } else if(menu.getCurrentItemIndex().second == 2){
+            setupCallReceiver();
         };
     });
+}
+
+void UserPort::setupCallReceiver()
+{
+    logger.logInfo("setup call receiver");
+    auto& mode = gui.setDialMode();
+    gui.setAcceptCallback([&]{
+        logger.logInfo("to: ", mode.getPhoneNumber());
+        showShortInfo("Calling...", &IUserPort::callRequestResignation);
+        this->handler->handleSendCallRequest(mode.getPhoneNumber());
+    });
+}
+
+void UserPort::showShortInfo(std::string &&message, InternalMethod onRejectFunction)
+{
+    // TODO Add timeout hiding message after few second even where the button is not pressed.
+    logger.logDebug("showShortInfo - message:", message);
+    auto& mode = gui.setAlertMode();
+    mode.setText(std::move(message));
+    gui.setRejectCallback([this, onRejectFunction]{
+        onRejectFunction(this);
+    });
+}
+
+void UserPort::callRequestResignation()
+{
+    logger.logInfo("user resignation");
+    this->handler->handleCallRequestResignation();
 }
 
 void UserPort::showSmsList() {
@@ -116,10 +150,6 @@ void UserPort::showPeerUserDisconnected()
 {
     logger.logInfo("UserPort::showPeerUserDisconnected");
     showShortInfo("Peer User was disconnected from BTS");
-}
-
-void UserPort::showShortInfo(std::string &&message)
-{
 }
 
 }

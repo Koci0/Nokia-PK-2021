@@ -67,4 +67,24 @@ void Application::handleUnknownRecipient(common::PhoneNumber callingPhoneNumber)
     context.state->handleUnknownRecipient(callingPhoneNumber);
 }
 
+void Application::handleSendCallRequest(common::PhoneNumber to)
+{
+    context.state->handleSendCallRequest(to);
+}
+
+void Application::handleCallAccepted()
+{
+    context.state->handleCallAccepted();
+}
+
+void Application::handleCallFailure(std::string &&message)
+{
+    context.state->handleCallFailure(std::move(message));
+}
+
+void Application::handleCallRequestResignation()
+{
+    context.state->handleCallRequestResignation();
+}
+
 }

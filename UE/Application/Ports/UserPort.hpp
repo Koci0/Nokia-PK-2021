@@ -24,7 +24,9 @@ public:
     void setupIncomingCallButtons(std::function<void()>, std::function<void()>) override;
     void showTalking() override;
     void showPeerUserDisconnected() override;
-    void showShortInfo(std::string &&message) override;
+    void setupCallReceiver() override;
+    void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) override;
+    void callRequestResignation() override;
 
     void showSmsReceived() override;
     void showSmsList() override;

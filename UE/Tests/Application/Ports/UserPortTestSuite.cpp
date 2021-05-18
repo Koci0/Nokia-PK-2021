@@ -20,6 +20,10 @@ protected:
     StrictMock<IUserEventsHandlerMock> handlerMock;
     StrictMock<IUeGuiMock> guiMock;
     StrictMock<IListViewModeMock> listViewModeMock;
+
+    StrictMock<IDialModeMock> dialViewModeMock;
+    StrictMock<ITextModeMock> alertViewModeMock;
+
     StrictMock<ISmsDbMock> smsDbMock;
     StrictMock<ITextModeMock> textModeMock;
     StrictMock<ICallModeMock> callModeMock;
@@ -76,6 +80,27 @@ TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
 {
     EXPECT_CALL(guiMock, setCallMode()).WillOnce(ReturnRef(callModeMock));
     objectUnderTest.showTalking();
+}
+
+TEST_F(UserPortTestSuite, shallShowDialActionModeOnSetupCallReceiver)
+{
+    EXPECT_CALL(guiMock, setDialMode()).WillOnce(ReturnRef(dialViewModeMock));
+    EXPECT_CALL(guiMock, setAcceptCallback(_));
+    objectUnderTest.setupCallReceiver();
+}
+
+TEST_F(UserPortTestSuite, shallInformUserInAlertMode)
+{
+    EXPECT_CALL(guiMock, setAlertMode()).WillOnce(ReturnRef(alertViewModeMock));
+    EXPECT_CALL(alertViewModeMock, setText(_));
+    EXPECT_CALL(guiMock, setRejectCallback(_));
+    objectUnderTest.showShortInfo("_");
+}
+
+TEST_F(UserPortTestSuite, shallHandleCallRequestResignation)
+{
+    EXPECT_CALL(handlerMock, handleCallRequestResignation());
+    objectUnderTest.callRequestResignation();
 }
 
 }

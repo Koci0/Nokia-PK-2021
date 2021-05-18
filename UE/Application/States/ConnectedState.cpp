@@ -20,9 +20,9 @@ void ConnectedState::handleTimeout()
 {
     logger.logInfo("ConnectedState::handleTimeout");
     context.user.resetButtons();
-    context.user.showConnected();
-    context.bts.sendCallReject(context.callingPhoneNumber);
-    context.callingPhoneNumber.value = 0;
+    context.user.showShortInfo("Timeout.");
+    context.bts.sendCallDropped(context.callingPhoneNumber);
+    context.callingPhoneNumber.value = common::PhoneNumber::INVALID_VALUE;
 }
 
 void ConnectedState::handleCallRequest(common::PhoneNumber callingPhoneNumber)
@@ -59,8 +59,43 @@ void ConnectedState::handleCallRequestReject()
     context.timer.stopTimer();
     context.user.resetButtons();
     context.user.showConnected();
-    context.bts.sendCallReject(context.callingPhoneNumber);
+    context.bts.sendCallDropped(context.callingPhoneNumber);
     context.callingPhoneNumber.value = 0;
+}
+
+void ConnectedState::handleSendCallRequest(common::PhoneNumber to)
+{
+    context.callingPhoneNumber = to;
+    context.bts.sendCallRequest(context.callingPhoneNumber);
+    using namespace std::chrono_literals;
+    context.timer.startTimer(60s);
+}
+
+void ConnectedState::handleCallAccepted()
+{
+    // TODO change mode to talking state
+    logger.logInfo("ConnectedState: handleCallAccepted");
+    context.timer.stopTimer();
+}
+
+void ConnectedState::handleCallFailure(std::string &&message)
+{
+    logger.logInfo("ConnectedState: handleCallFailure");
+    context.user.showShortInfo(std::move(message));
+    context.timer.stopTimer();
+}
+
+void ConnectedState::handleUnknownRecipient(common::PhoneNumber)
+{
+    handleCallFailure("User is not connected.");
+}
+
+void ConnectedState::handleCallRequestResignation()
+{
+    logger.logInfo("ConnectedState: handleCallRequestResignation");
+    context.timer.stopTimer();
+    context.bts.sendCallDropped(context.callingPhoneNumber);
+    context.user.showShortInfo("You dropped a call.");
 }
 
 }

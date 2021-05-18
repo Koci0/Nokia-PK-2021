@@ -59,10 +59,22 @@ void BtsPort::handleMessage(BinaryMessage msg)
         case common::MessageId::CallRequest:
         {
             handler->handleCallRequest(from);
+        }
+        case common::MessageId::CallAccepted:
+        {
+            logger.logInfo("BTS handleMessage: CallAccepted");
+            handler->handleCallAccepted();
+            break;
+        }
+        case common::MessageId::CallDropped:
+        {
+            logger.logInfo("BTS handleMessage: CallDropped");
+            handler->handleCallFailure("User dropped a call.");
             break;
         }
         case common::MessageId::UnknownRecipient:
         {
+            logger.logInfo("BTS handleMessage: UnknownRecipient");
             handler->handleUnknownRecipient(from);
             break;
         }
@@ -96,12 +108,21 @@ void BtsPort::sendCallAccept(common::PhoneNumber toPhoneNumber)
     transport.sendMessage(msg.getMessage());
 }
 
-void BtsPort::sendCallReject(common::PhoneNumber toPhoneNumber)
+void BtsPort::sendCallDropped(common::PhoneNumber toPhoneNumber)
 {
     logger.logInfo("BtsPort::sendCallReject: ", to_string(toPhoneNumber));
     common::OutgoingMessage msg{common::MessageId::CallDropped,
                                 phoneNumber,
                                 toPhoneNumber};
+    transport.sendMessage(msg.getMessage());
+}
+
+void BtsPort::sendCallRequest(common::PhoneNumber to)
+{
+    logger.logDebug("sendCallRequest - PhoneNumber to: ", to);
+    common::OutgoingMessage msg{common::MessageId::CallRequest,
+                                phoneNumber,
+                                to};
     transport.sendMessage(msg.getMessage());
 }
 

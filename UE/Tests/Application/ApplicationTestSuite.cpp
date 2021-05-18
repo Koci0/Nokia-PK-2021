@@ -123,20 +123,20 @@ TEST_F(ApplicationConnectedTestSuite, shallShowIncomingCallOnCallRequest)
     objectUnderTest.handleCallRequest(PHONE_NUMBER);
 }
 
-TEST_F(ApplicationConnectedTestSuite, shallRejectCallOnCallRequestReject)
+TEST_F(ApplicationConnectedTestSuite, shallDropCallOnCallRequestReject)
 {
     EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(userPortMock, resetButtons());
     EXPECT_CALL(userPortMock, showConnected());
-    EXPECT_CALL(btsPortMock, sendCallReject(_));
+    EXPECT_CALL(btsPortMock, sendCallDropped(_));
     objectUnderTest.handleCallRequestReject();
 }
 
-TEST_F(ApplicationConnectedTestSuite, shallRejectCallOnCallRequestTimeout)
+TEST_F(ApplicationConnectedTestSuite, shallDropCallOnCallRequestTimeout)
 {
     EXPECT_CALL(userPortMock, resetButtons());
-    EXPECT_CALL(userPortMock, showConnected());
-    EXPECT_CALL(btsPortMock, sendCallReject(_));
+    EXPECT_CALL(userPortMock, showShortInfo(_, _));
+    EXPECT_CALL(btsPortMock, sendCallDropped(_));
     objectUnderTest.handleTimeout();
 }
 
