@@ -2,6 +2,7 @@
 
 #include <gmock/gmock.h>
 #include "Ports/IBtsPort.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {
@@ -25,6 +26,7 @@ public:
     ~IBtsPortMock() override;
 
     MOCK_METHOD(void, sendAttachRequest, (common::BtsId), (final));
+    MOCK_METHOD(void, handleMessageSend, (ue::Sms&), (final));
 };
 
 }

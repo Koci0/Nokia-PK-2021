@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Sms.hpp"
 
 namespace ue
 {

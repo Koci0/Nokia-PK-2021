@@ -9,8 +9,8 @@ Application::Application(common::PhoneNumber phoneNumber,
                          IBtsPort &bts,
                          IUserPort &user,
                          ITimerPort &timer,
-                         ISmsDb &smsDB)
-    : context{iLogger, bts, user, timer},
+                         ISmsDb &db)
+    : context{iLogger, bts, user, timer, db},
       logger(iLogger, "[APP] ")
 {
     logger.logInfo("Started");
@@ -45,6 +45,11 @@ void Application::handleAttachAccept()
 void Application::handleAttachReject()
 {
     context.state->handleAttachReject();
+}
+
+void Application::handleSmsSend(Sms &sms)
+{
+    context.state->handleSmsSend(sms);
 }
 
 }

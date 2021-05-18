@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Messages/BtsId.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {

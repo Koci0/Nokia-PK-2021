@@ -20,7 +20,7 @@ public:
                 IBtsPort& bts,
                 IUserPort& user,
                 ITimerPort& timer,
-                ISmsDb& smsDB);
+                ISmsDb& db);
     ~Application();
 
     // ITimerEventsHandler interface
@@ -31,7 +31,7 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
-
+    void handleSmsSend(Sms &sms) override;
 private:
     Context context;
     common::PrefixedLogger logger;
