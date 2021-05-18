@@ -20,4 +20,11 @@ void ConnectedState::handleSmsSend(Sms &sms)
     context.bts.handleMessageSend(sms);
 }
 
+void ConnectedState::markSmsAsFailed()
+{
+    Sms* sms = context.db.getLast();
+    sms->isFailed = true;
+    logger.logInfo("last sms marked as failed");
+}
+
 }

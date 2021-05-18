@@ -20,6 +20,7 @@ public:
     Sms* getOne(int id) override;
     void addOne(Sms sms) override;
     void remove() override;
+    Sms* getLast() override;
 };
 
 }

@@ -52,4 +52,9 @@ void Application::handleSmsSend(Sms &sms)
     context.state->handleSmsSend(sms);
 }
 
+void Application::markSmsAsFailed()
+{
+    context.state->markSmsAsFailed();
+}
+
 }

@@ -32,6 +32,7 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
     void handleSmsSend(Sms &sms) override;
+    void markSmsAsFailed() override;
 private:
     Context context;
     common::PrefixedLogger logger;

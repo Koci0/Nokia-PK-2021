@@ -15,6 +15,7 @@ public:
     virtual void handleSib(common::BtsId) = 0;
     virtual void handleAttachAccept() = 0;
     virtual void handleAttachReject() = 0;
+    virtual void markSmsAsFailed() = 0;
 };
 
 class IBtsPort

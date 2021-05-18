@@ -17,6 +17,7 @@ public:
 
     // IUserEventsHandler interface
     void handleSmsSend(Sms& sms) final;
+    void markSmsAsFailed() final;
 };
 
 }

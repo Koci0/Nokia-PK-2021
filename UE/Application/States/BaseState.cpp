@@ -45,4 +45,8 @@ void BaseState::handleSmsSend(Sms &sms)
     logger.logError("Unexpected: handleSmsSend");
 }
 
+void BaseState::markSmsAsFailed()
+{
+    logger.logError("Unexpected: markSmsAsFailed");
+}
 }
