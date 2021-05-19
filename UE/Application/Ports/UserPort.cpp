@@ -117,6 +117,16 @@ void UserPort::showSms(int id) {
     Sms* sms = db.getOne(id);
     menu.setText(sms->text);
     sms->read=true;
+    bool readAll = true;
+    for(auto sms : db.getAll()) {
+        if(sms.read == false){
+            readAll = false;
+            break;
+        }
+    }
+    if (readAll == true) {
+        showSmsNotNew();
+    }
     gui.setRejectCallback([&](){
         showSmsList();
     });
@@ -124,6 +134,10 @@ void UserPort::showSms(int id) {
 
 void UserPort::showSmsNew(){
     gui.showNewSms();
+}
+
+void UserPort::showSmsNotNew(){
+    gui.showNotNewSms();
 }
 
 void UserPort::showCallRequest(common::PhoneNumber callingPhoneNumber)
