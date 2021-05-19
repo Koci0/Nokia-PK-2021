@@ -28,7 +28,7 @@ public:
     void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) override;
     void callRequestResignation() override;
 
-    void showSmsReceived() override;
+    void showSmsNew() override;
     void showSmsList() override;
     void showSms(int id) override;
 

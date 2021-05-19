@@ -9,8 +9,8 @@ Application::Application(common::PhoneNumber phoneNumber,
                          IBtsPort &bts,
                          IUserPort &user,
                          ITimerPort &timer,
-                         ISmsDb &smsDB)
-    : context{iLogger, bts, user, timer},
+                         ISmsDb &db)
+    : context{iLogger, bts, user, timer, db},
       logger(iLogger, "[APP] ")
 {
     logger.logInfo("Started");
@@ -47,6 +47,10 @@ void Application::handleAttachReject()
     context.state->handleAttachReject();
 }
 
+void Application::handleSmsReceived(common::PhoneNumber from, std::string &text)
+{
+    context.state->handleSmsReceived(from, text);
+}
 void Application::handleCallRequest(common::PhoneNumber callingPhoneNumber)
 {
     context.state->handleCallRequest(callingPhoneNumber);

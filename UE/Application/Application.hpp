@@ -20,7 +20,7 @@ public:
                 IBtsPort& bts,
                 IUserPort& user,
                 ITimerPort& timer,
-                ISmsDb& smsDB);
+                ISmsDb& db);
     ~Application();
 
     // ITimerEventsHandler interface
@@ -31,6 +31,7 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
+    void handleSmsReceived(common::PhoneNumber from, std::string &text) override;
     void handleCallRequest(common::PhoneNumber callingPhoneNumber) override;
     void handleCallRequestAccept() override;
     void handleCallRequestReject() override;

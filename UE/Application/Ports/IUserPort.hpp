@@ -32,7 +32,7 @@ public:
     virtual void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) = 0;
     virtual void callRequestResignation() = 0;
 
-    virtual void showSmsReceived() = 0;
+    virtual void showSmsNew() = 0;
     virtual void showSmsList() = 0;
     virtual void showSms(int id) = 0;
 
