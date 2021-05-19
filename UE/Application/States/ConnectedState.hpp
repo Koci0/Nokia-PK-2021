@@ -30,7 +30,6 @@ public:
     void handleSendCallRequest(common::PhoneNumber to) final;
     void handleCallRequestResignation() final;
     void handleSmsSend(Sms& sms) final;
-    void markSmsAsFailed() final;
 };
 
 }

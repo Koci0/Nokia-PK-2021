@@ -54,7 +54,6 @@ void UserPort::showConnected()
             showSmsList();
         } else if(menu.getCurrentItemIndex().second == 2){
             setupCallReceiver();
-        };
         } else if (menu.getCurrentItemIndex().second == 0) {
             showSmsCompose();
         }
@@ -153,6 +152,8 @@ void UserPort::showPeerUserDisconnected()
 {
     logger.logInfo("UserPort::showPeerUserDisconnected");
     showShortInfo("Peer User was disconnected from BTS");
+}
+
 void UserPort::showSmsCompose() {
     IUeGui::ISmsComposeMode& smsGui = gui.setSmsComposeMode();
     smsGui.clearSmsText();
@@ -160,7 +161,8 @@ void UserPort::showSmsCompose() {
         showConnected();
     });
     gui.setAcceptCallback([&](){
-        Sms sms{smsGui.getPhoneNumber(),phoneNumber, smsGui.getSmsText()};
+        Sms sms{phoneNumber, smsGui.getSmsText()};
+        sms.to = smsGui.getPhoneNumber();
         if(sms.from == sms.to)
             return;
 

@@ -17,7 +17,7 @@ public:
 
 TEST_F(SmsDbTestSuite, shallAddUnreadSms)
 {
-    const Sms sms{number, from, "test suite"};
+    const Sms sms{number, "test suite"};
     objTested.addOne(sms);
     const std::vector<Sms>& fetched = objTested.getAll();
 
@@ -27,7 +27,7 @@ TEST_F(SmsDbTestSuite, shallAddUnreadSms)
 
 TEST_F(SmsDbTestSuite, shallGetSms)
 {
-    const Sms sms{number, from, "test suite"};
+    const Sms sms{number, "test suite"};
     objTested.addOne(sms);
     const std::vector<Sms>& fetched = objTested.getAll();
 

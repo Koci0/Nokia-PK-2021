@@ -4,12 +4,6 @@
 
 namespace ue
 {
-SmsDb::SmsDb()
-{
-    std::vector<Sms> vec;
-    this->v_sms = vec;
-}
-
 SmsDb::SmsDb(std::vector<Sms> v_sms)
 {
     this->v_sms = v_sms;

@@ -11,7 +11,7 @@ using common::PhoneNumber;
 class Sms
 {
 public:
-    Sms(PhoneNumber from,PhoneNumber to, std::string text);
+    Sms(PhoneNumber from, std::string text);
     int messageId;
     std::string text;
     PhoneNumber from, to;

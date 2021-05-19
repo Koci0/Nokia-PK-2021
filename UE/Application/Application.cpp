@@ -89,14 +89,10 @@ void Application::handleCallFailure(std::string &&message)
 void Application::handleCallRequestResignation()
 {
     context.state->handleCallRequestResignation();
+}
+
 void Application::handleSmsSend(Sms &sms)
 {
     context.state->handleSmsSend(sms);
 }
-
-void Application::markSmsAsFailed()
-{
-    context.state->markSmsAsFailed();
-}
-
 }
