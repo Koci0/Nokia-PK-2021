@@ -35,6 +35,7 @@ public:
     virtual void callRequestResignation() = 0;
 
     virtual void showSmsNew() = 0;
+    virtual void showSmsNotNew() = 0;
     virtual void showSmsList() = 0;
     virtual void showSms(int id) = 0;
 

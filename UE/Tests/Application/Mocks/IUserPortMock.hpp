@@ -37,6 +37,7 @@ public:
     MOCK_METHOD(void, showSms, (int), (final));
     MOCK_METHOD(void, showSmsList, (), (final));
     MOCK_METHOD(void, showSmsNew, (), (final));
+    MOCK_METHOD(void, showSmsNotNew, (), (final));
 
     MOCK_METHOD(void, showCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, resetButtons, (), (final));
