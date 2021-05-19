@@ -12,7 +12,7 @@ TalkingState::TalkingState(Context &context, common::PhoneNumber withPhoneNumber
     context.bts.sendCallAccept(withPhoneNumber);
 }
 
-void TalkingState::handleUnknownRecipient(common::PhoneNumber callingPhoneNumber)
+void TalkingState::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber)
 {
     logger.logInfo("TalkingState::handleUnkownRecipient");
     context.user.showPeerUserDisconnected();

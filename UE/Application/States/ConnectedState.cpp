@@ -92,7 +92,7 @@ void ConnectedState::handleCallFailure(std::string &&message)
     context.timer.stopTimer();
 }
 
-void ConnectedState::handleUnknownRecipient(common::PhoneNumber)
+void ConnectedState::handleCallUnknownRecipient(common::PhoneNumber)
 {
     handleCallFailure("User is not connected.");
 }
@@ -108,6 +108,13 @@ void ConnectedState::handleCallRequestResignation()
 void ConnectedState::handleSmsSend(Sms &sms)
 {
     context.bts.handleMessageSend(sms);
+}
+
+void ConnectedState::handleSmsUnknownRecipient()
+{
+    Sms* sms = context.db.getLast();
+    sms->isFailed = true;
+    logger.logInfo("ConnectedState: handleSmsUnknownRecipient - sms marked as failed");
 }
 
 }

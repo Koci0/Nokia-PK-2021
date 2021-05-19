@@ -128,7 +128,7 @@ TEST_F(BtsPortTestSuite, shallSendCallReject)
 
 TEST_F(BtsPortTestSuite, shallHandleUnknownRecipient)
 {
-    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
+    EXPECT_CALL(handlerMock, handleCallUnknownRecipient(_));
     common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
@@ -165,7 +165,7 @@ TEST_F(BtsPortTestSuite, shallHandleCallDropped)
 
 TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
 {
-    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
+    EXPECT_CALL(handlerMock, handleCallUnknownRecipient(_));
     common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
