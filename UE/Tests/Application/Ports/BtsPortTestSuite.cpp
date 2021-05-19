@@ -17,6 +17,7 @@ class BtsPortTestSuite : public Test
 {
 protected:
     const common::PhoneNumber PHONE_NUMBER{112};
+    const common::PhoneNumber TO_PHONE_NUMBER{113};
     const common::BtsId BTS_ID{13121981ll};
     NiceMock<common::ILoggerMock> loggerMock;
     StrictMock<IBtsEventsHandlerMock> handlerMock;
@@ -111,6 +112,73 @@ TEST_F(BtsPortTestSuite, shallHandleSmsReceived)
                             PHONE_NUMBER};
     msg.writeNumber(false);
     messageCallback(msg.getMessage());
+}
+  
+TEST_F(BtsPortTestSuite, shallSendCallReject)
+{
+    common::BinaryMessage msg;
+    common::PhoneNumber toPhoneNumber{1};
+    EXPECT_CALL(transportMock, sendMessage(_)).WillOnce([&msg](auto param) { msg = std::move(param); return true; });
+    objectUnderTest.sendCallDropped(toPhoneNumber);
+    common::IncomingMessage reader(msg);
+    ASSERT_NO_THROW(EXPECT_EQ(common::MessageId::CallDropped, reader.readMessageId()));
+    ASSERT_NO_THROW(EXPECT_EQ(PHONE_NUMBER, reader.readPhoneNumber()));
+    ASSERT_NO_THROW(EXPECT_EQ(toPhoneNumber, reader.readPhoneNumber()));
+}
+
+TEST_F(BtsPortTestSuite, shallHandleUnknownRecipient)
+{
+    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
+    common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    msg.writeNumber(false);
+    messageCallback(msg.getMessage());
+}
+
+TEST_F(BtsPortTestSuite, shallSendCallRequest)
+{
+    common::OutgoingMessage msg = {common::MessageId::AttachRequest,
+                                   TO_PHONE_NUMBER,
+                                   PHONE_NUMBER};
+    EXPECT_CALL(transportMock, sendMessage(_));
+    objectUnderTest.sendCallRequest(PHONE_NUMBER);
+}
+
+TEST_F(BtsPortTestSuite, shallHandleCallAccepted)
+{
+    EXPECT_CALL(handlerMock, handleCallAccepted());
+    common::OutgoingMessage msg{common::MessageId::CallAccepted,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    messageCallback(msg.getMessage());
+}
+
+TEST_F(BtsPortTestSuite, shallHandleCallDropped)
+{
+    EXPECT_CALL(handlerMock, handleCallFailure(_));
+    common::OutgoingMessage msg{common::MessageId::CallDropped,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    messageCallback(msg.getMessage());
+}
+
+TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
+{
+    EXPECT_CALL(handlerMock, handleUnknownRecipient(_));
+    common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
+                                common::PhoneNumber{},
+                                PHONE_NUMBER};
+    messageCallback(msg.getMessage());
+}
+
+TEST_F(BtsPortTestSuite, shallSendCallDropped)
+{
+    EXPECT_CALL(transportMock, sendMessage(_));
+    common::OutgoingMessage msg = {common::MessageId::CallDropped,
+                                   PHONE_NUMBER,
+                                   PHONE_NUMBER};
+    objectUnderTest.sendCallDropped(PHONE_NUMBER);
 }
 
 }

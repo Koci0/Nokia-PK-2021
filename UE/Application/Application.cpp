@@ -51,5 +51,44 @@ void Application::handleSmsReceived(common::PhoneNumber from, std::string &text)
 {
     context.state->handleSmsReceived(from, text);
 }
+void Application::handleCallRequest(common::PhoneNumber callingPhoneNumber)
+{
+    context.state->handleCallRequest(callingPhoneNumber);
+}
+
+void Application::handleCallRequestAccept()
+{
+    context.state->handleCallRequestAccept();
+}
+
+void Application::handleCallRequestReject()
+{
+    context.state->handleCallRequestReject();
+}
+
+void Application::handleUnknownRecipient(common::PhoneNumber callingPhoneNumber)
+{
+    context.state->handleUnknownRecipient(callingPhoneNumber);
+}
+
+void Application::handleSendCallRequest(common::PhoneNumber to)
+{
+    context.state->handleSendCallRequest(to);
+}
+
+void Application::handleCallAccepted()
+{
+    context.state->handleCallAccepted();
+}
+
+void Application::handleCallFailure(std::string &&message)
+{
+    context.state->handleCallFailure(std::move(message));
+}
+
+void Application::handleCallRequestResignation()
+{
+    context.state->handleCallRequestResignation();
+}
 
 }
