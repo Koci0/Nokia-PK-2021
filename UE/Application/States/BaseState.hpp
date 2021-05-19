@@ -26,7 +26,7 @@ public:
     void handleCallRequestAccept() override;
     void handleCallRequestReject() override;
     void handleUnknownRecipient(common::PhoneNumber) override;
-    void handleCallAccepted() override;
+    void handleCallAccepted(common::PhoneNumber) override;
     void handleCallFailure(std::string &&) override;
 
     // IUserEventsHandler interface

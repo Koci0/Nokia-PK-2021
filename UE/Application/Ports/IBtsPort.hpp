@@ -18,7 +18,7 @@ public:
     virtual void handleSmsReceived(common::PhoneNumber, std::string&) = 0;
     virtual void handleCallRequest(common::PhoneNumber) = 0;
     virtual void handleUnknownRecipient(common::PhoneNumber) = 0;
-    virtual void handleCallAccepted() = 0;
+    virtual void handleCallAccepted(common::PhoneNumber) = 0;
     virtual void handleCallFailure(std::string &&) = 0;
 };
 

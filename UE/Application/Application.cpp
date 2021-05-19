@@ -76,9 +76,9 @@ void Application::handleSendCallRequest(common::PhoneNumber to)
     context.state->handleSendCallRequest(to);
 }
 
-void Application::handleCallAccepted()
+void Application::handleCallAccepted(common::PhoneNumber from)
 {
-    context.state->handleCallAccepted();
+    context.state->handleCallAccepted(from);
 }
 
 void Application::handleCallFailure(std::string &&message)
