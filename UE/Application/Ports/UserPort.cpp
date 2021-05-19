@@ -97,8 +97,8 @@ void UserPort::showSmsList() {
         menu.addSelectionListItem("No SMS in DB", "");
     } else {
         for(auto sms : ListSms) {
-            if(sms.to == phoneNumber) {
-                menu.addSelectionListItem("Send to" + to_string(sms.to), sms.text);
+            if(sms.from == phoneNumber) {
+                menu.addSelectionListItem(sms.isFailed?"Failed: " + to_string(sms.to):"Send to: " + to_string(sms.to), sms.text);
             } else {
             menu.addSelectionListItem("From: " + to_string(sms.from), sms.text);
             }
