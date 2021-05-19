@@ -147,7 +147,7 @@ TEST_F(BtsPortTestSuite, shallSendCallRequest)
 
 TEST_F(BtsPortTestSuite, shallHandleCallAccepted)
 {
-    EXPECT_CALL(handlerMock, handleCallAccepted());
+    EXPECT_CALL(handlerMock, handleCallAccepted(_));
     common::OutgoingMessage msg{common::MessageId::CallAccepted,
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
