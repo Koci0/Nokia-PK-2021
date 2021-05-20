@@ -21,7 +21,7 @@ public:
     MOCK_METHOD(void, handleSmsUnknownRecipient, (), (final));
     MOCK_METHOD(void, handleCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallUnknownRecipient, (common::PhoneNumber), (final));
-    MOCK_METHOD(void, handleCallAccepted,(), (final));
+    MOCK_METHOD(void, handleCallAccepted,(common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallFailure,(std::string &&), (final));
 };
 
