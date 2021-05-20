@@ -21,7 +21,7 @@ public:
     void handleCallRequest(common::PhoneNumber) final;
     void handleCallRequestAccept() final;
     void handleCallRequestReject() final;
-    void handleCallAccepted() final;
+    void handleCallAccepted(common::PhoneNumber from) final;
     void handleCallFailure(std::string &&) final;
     void handleUnknownRecipient(common::PhoneNumber callingPhoneNumber) final;
 

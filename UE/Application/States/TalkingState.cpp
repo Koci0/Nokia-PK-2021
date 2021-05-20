@@ -9,6 +9,7 @@ TalkingState::TalkingState(Context &context, common::PhoneNumber withPhoneNumber
     : BaseState(context, "TalkingState")
 {
     context.user.showTalking();
+    context.user.resetButtons();
     context.bts.sendCallAccept(withPhoneNumber);
 }
 
