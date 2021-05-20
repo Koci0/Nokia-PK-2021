@@ -56,7 +56,6 @@ void ConnectedState::handleCallRequestAccept()
 {
     logger.logInfo("ConnectedState::handleCallRequestAccept");
     context.timer.stopTimer();
-    context.user.resetButtons();
     context.setState<TalkingState>(context.callingPhoneNumber);
 }
 
@@ -78,11 +77,11 @@ void ConnectedState::handleSendCallRequest(common::PhoneNumber to)
     context.timer.startTimer(60s);
 }
 
-void ConnectedState::handleCallAccepted()
+void ConnectedState::handleCallAccepted(common::PhoneNumber from)
 {
-    // TODO change mode to talking state
     logger.logInfo("ConnectedState: handleCallAccepted");
     context.timer.stopTimer();
+    context.setState<TalkingState>(from);
 }
 
 void ConnectedState::handleCallFailure(std::string &&message)
