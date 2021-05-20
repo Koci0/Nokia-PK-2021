@@ -2,6 +2,7 @@
 
 #include <gmock/gmock.h>
 #include "Ports/IBtsPort.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {
@@ -17,8 +18,9 @@ public:
     MOCK_METHOD(void, handleAttachAccept, (), (final));
     MOCK_METHOD(void, handleAttachReject, (), (final));
     MOCK_METHOD(void, handleSmsReceived, (common::PhoneNumber, std::string &),(final));
+    MOCK_METHOD(void, handleSmsUnknownRecipient, (), (final));
     MOCK_METHOD(void, handleCallRequest, (common::PhoneNumber), (final));
-    MOCK_METHOD(void, handleUnknownRecipient, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleCallUnknownRecipient, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallAccepted,(common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallFailure,(std::string &&), (final));
 };
@@ -33,6 +35,7 @@ public:
     MOCK_METHOD(void, sendCallAccept, (common::PhoneNumber), (final));
     MOCK_METHOD(void, sendCallDropped, (common::PhoneNumber), (final));
     MOCK_METHOD(void, sendCallRequest, (common::PhoneNumber), (final));
+    MOCK_METHOD(void, handleMessageSend, (ue::Sms&), (final));
 };
 
 }

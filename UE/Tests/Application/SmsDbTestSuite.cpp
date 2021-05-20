@@ -11,7 +11,7 @@ class SmsDbTestSuite: public Test
 {
 public:
     static constexpr common::PhoneNumber number{220};
-
+    static constexpr common::PhoneNumber from{123};
     SmsDb objTested;
 };
 

@@ -29,8 +29,10 @@ public:
     void callRequestResignation() override;
 
     void showSmsNew() override;
+    void showSmsNotNew() override;
     void showSmsList() override;
     void showSms(int id) override;
+    void showSmsCompose() override;
 
 private:
     common::PrefixedLogger logger;

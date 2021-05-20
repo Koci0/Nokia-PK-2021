@@ -4,7 +4,6 @@
 
 namespace ue
 {
-
 SmsDb::SmsDb(std::vector<Sms> v_sms)
 {
     this->v_sms = v_sms;
@@ -30,5 +29,9 @@ void SmsDb::remove()
     v_sms.clear();
 }
 
+Sms* SmsDb::getLast()
+{
+    return &v_sms.back();
+}
 
 }

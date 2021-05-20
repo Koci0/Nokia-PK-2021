@@ -9,6 +9,7 @@ Sms::Sms(common::PhoneNumber from, std::string text)
       text(text)
 {
     read = false;
+    isFailed = false;
 }
 
 }

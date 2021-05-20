@@ -51,6 +51,12 @@ void Application::handleSmsReceived(common::PhoneNumber from, std::string &text)
 {
     context.state->handleSmsReceived(from, text);
 }
+
+void Application::handleSmsUnknownRecipient()
+{
+    context.state->handleSmsUnknownRecipient();
+}
+
 void Application::handleCallRequest(common::PhoneNumber callingPhoneNumber)
 {
     context.state->handleCallRequest(callingPhoneNumber);
@@ -66,9 +72,9 @@ void Application::handleCallRequestReject()
     context.state->handleCallRequestReject();
 }
 
-void Application::handleUnknownRecipient(common::PhoneNumber callingPhoneNumber)
+void Application::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber)
 {
-    context.state->handleUnknownRecipient(callingPhoneNumber);
+    context.state->handleCallUnknownRecipient(callingPhoneNumber);
 }
 
 void Application::handleSendCallRequest(common::PhoneNumber to)
@@ -91,4 +97,8 @@ void Application::handleCallRequestResignation()
     context.state->handleCallRequestResignation();
 }
 
+void Application::handleSmsSend(Sms &sms)
+{
+    context.state->handleSmsSend(sms);
+}
 }

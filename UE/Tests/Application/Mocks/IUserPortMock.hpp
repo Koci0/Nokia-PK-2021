@@ -2,6 +2,7 @@
 
 #include <gmock/gmock.h>
 #include "Ports/IUserPort.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {
@@ -16,6 +17,7 @@ public:
     MOCK_METHOD(void, handleCallRequestReject, (), (final));
     MOCK_METHOD(void, handleSendCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallRequestResignation, (), (final));
+    MOCK_METHOD(void, handleSmsSend, (ue::Sms&), (final));
 };
 
 class IUserPortMock : public IUserPort
@@ -35,12 +37,14 @@ public:
     MOCK_METHOD(void, showSms, (int), (final));
     MOCK_METHOD(void, showSmsList, (), (final));
     MOCK_METHOD(void, showSmsNew, (), (final));
+    MOCK_METHOD(void, showSmsNotNew, (), (final));
 
     MOCK_METHOD(void, showCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, resetButtons, (), (final));
     MOCK_METHOD(void, setupIncomingCallButtons, (std::function<void()>, std::function<void()>), (final));
     MOCK_METHOD(void, showTalking, (), (final));
     MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
+    MOCK_METHOD(void, showSmsCompose, (), (final));
 };
 
 }

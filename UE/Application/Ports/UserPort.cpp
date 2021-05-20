@@ -4,6 +4,7 @@
 #include "UeGui/IDialMode.hpp"
 #include "UeGui/ITextMode.hpp"
 #include "UeGui/ITextMode.hpp"
+#include "UeGui/ISmsComposeMode.hpp"
 #include "Sms.hpp"
 #include "ISmsDb.hpp"
 #include <string>
@@ -49,11 +50,13 @@ void UserPort::showConnected()
     menu.addSelectionListItem("Call", "");
 
     gui.setAcceptCallback([&](){
-        if(menu.getCurrentItemIndex().second == 1){
+        if (menu.getCurrentItemIndex().second == 0) {
+                    showSmsCompose();
+        } else if (menu.getCurrentItemIndex().second == 1) {
             showSmsList();
-        } else if(menu.getCurrentItemIndex().second == 2){
+        } else if (menu.getCurrentItemIndex().second == 2) {
             setupCallReceiver();
-        };
+        }
     });
 }
 
@@ -94,7 +97,11 @@ void UserPort::showSmsList() {
         menu.addSelectionListItem("No SMS in DB", "");
     } else {
         for(auto sms : ListSms) {
+            if(sms.from == phoneNumber) {
+                menu.addSelectionListItem(sms.isFailed?"Failed: " + to_string(sms.to):"Send to: " + to_string(sms.to), sms.text);
+            } else {
             menu.addSelectionListItem("From: " + to_string(sms.from), sms.text);
+            }
         }
         gui.setAcceptCallback([&](){
             showSms(menu.getCurrentItemIndex().second);
@@ -110,6 +117,16 @@ void UserPort::showSms(int id) {
     Sms* sms = db.getOne(id);
     menu.setText(sms->text);
     sms->read=true;
+    bool readAll = true;
+    for(auto sms : db.getAll()) {
+        if(sms.read == false){
+            readAll = false;
+            break;
+        }
+    }
+    if (readAll == true) {
+        showSmsNotNew();
+    }
     gui.setRejectCallback([&](){
         showSmsList();
     });
@@ -117,6 +134,10 @@ void UserPort::showSms(int id) {
 
 void UserPort::showSmsNew(){
     gui.showNewSms();
+}
+
+void UserPort::showSmsNotNew(){
+    gui.showNotNewSms();
 }
 
 void UserPort::showCallRequest(common::PhoneNumber callingPhoneNumber)
@@ -149,6 +170,24 @@ void UserPort::showPeerUserDisconnected()
 {
     logger.logInfo("UserPort::showPeerUserDisconnected");
     showShortInfo("Peer User was disconnected from BTS");
+}
+
+void UserPort::showSmsCompose() {
+    IUeGui::ISmsComposeMode& smsGui = gui.setSmsComposeMode();
+    smsGui.clearSmsText();
+    gui.setRejectCallback([&](){
+        showConnected();
+    });
+    gui.setAcceptCallback([&](){
+        Sms sms{phoneNumber, smsGui.getSmsText()};
+        sms.to = smsGui.getPhoneNumber();
+        if(sms.from == sms.to)
+            return;
+
+        db.addOne(sms);
+        handler->handleSmsSend(sms);
+        showConnected();
+    });
 }
 
 }

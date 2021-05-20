@@ -16,7 +16,7 @@ public:
     std::string text;
     PhoneNumber from, to;
     bool read;
-
+    bool isFailed;
 };
 
 inline bool operator==(const Sms& left, const Sms& right)

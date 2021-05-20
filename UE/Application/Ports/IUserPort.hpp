@@ -3,6 +3,7 @@
 #include <functional>
 
 #include "Messages/PhoneNumber.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {
@@ -16,6 +17,7 @@ public:
     virtual void handleCallRequestReject() = 0;
     virtual void handleSendCallRequest(common::PhoneNumber to) = 0;
     virtual void handleCallRequestResignation() = 0;
+    virtual void handleSmsSend(Sms& sms) = 0;
 };
 
 class IUserPort
@@ -33,6 +35,7 @@ public:
     virtual void callRequestResignation() = 0;
 
     virtual void showSmsNew() = 0;
+    virtual void showSmsNotNew() = 0;
     virtual void showSmsList() = 0;
     virtual void showSms(int id) = 0;
 
@@ -42,6 +45,7 @@ public:
     virtual void showTalking() = 0;
     virtual void showPeerUserDisconnected() = 0;
 
+    virtual void showSmsCompose() = 0;
 };
 
 }

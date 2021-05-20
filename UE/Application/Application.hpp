@@ -32,10 +32,11 @@ public:
     void handleAttachAccept() override;
     void handleAttachReject() override;
     void handleSmsReceived(common::PhoneNumber from, std::string &text) override;
+    void handleSmsUnknownRecipient() override;
     void handleCallRequest(common::PhoneNumber callingPhoneNumber) override;
     void handleCallRequestAccept() override;
     void handleCallRequestReject() override;
-    void handleUnknownRecipient(common::PhoneNumber callingPhoneNumber) override;
+    void handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber) override;
     void handleCallAccepted(common::PhoneNumber from) override;
     void handleCallFailure(std::string &&) override;
 
@@ -43,6 +44,7 @@ public:
     void handleSendCallRequest(common::PhoneNumber to) override;
     void handleCallRequestResignation() override;
 
+    void handleSmsSend(Sms &sms) override;
 private:
     Context context;
     common::PrefixedLogger logger;

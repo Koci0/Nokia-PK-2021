@@ -1,6 +1,7 @@
 #include "BtsPort.hpp"
 #include "Messages/IncomingMessage.hpp"
 #include "Messages/OutgoingMessage.hpp"
+#include "Sms.hpp"
 
 namespace ue
 {
@@ -83,12 +84,19 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         case common::MessageId::UnknownRecipient:
         {
-            logger.logInfo("BTS handleMessage: UnknownRecipient");
-            handler->handleUnknownRecipient(from);
+            if (reader.readMessageId() == common::MessageId::Sms) {
+                 logger.logInfo("BTS handleMessage: UnknownRecipient - SMS");
+                handler->handleSmsUnknownRecipient();
+                break;
+            } else {
+                 logger.logInfo("BTS handleMessage: UnknownRecipient - Call");
+                handler->handleCallUnknownRecipient(from);
+            }
             break;
         }
         default:
-            logger.logError("unknow message: ", msgId, ", from: ", from);
+            logger.logError("unknown message: ", msgId, ", from: ", from);
+            
         }
     }
     catch (std::exception const& ex)
@@ -132,6 +140,14 @@ void BtsPort::sendCallRequest(common::PhoneNumber to)
                                 phoneNumber,
                                 to};
     transport.sendMessage(msg.getMessage());
+}
+
+void BtsPort::handleMessageSend(Sms &sms)
+{
+    logger.logInfo("sms send from:",sms.from," to:",sms.to);
+    common::OutgoingMessage smsSendMsg{common::MessageId::Sms, sms.from, sms.to};
+    smsSendMsg.writeText(sms.text);
+    transport.sendMessage(smsSendMsg.getMessage());
 }
 
 }
