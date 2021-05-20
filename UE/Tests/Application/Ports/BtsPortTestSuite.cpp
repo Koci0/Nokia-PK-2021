@@ -136,12 +136,18 @@ TEST_F(BtsPortTestSuite, shallHandleUnknownRecipient)
     messageCallback(msg.getMessage());
 }
 
-TEST_F(BtsPortTestSuite, shallSendCallRequest)
+TEST_F(BtsPortTestSuite, shallSendCallRequestOnDifferentPhoneNumber)
 {
     common::OutgoingMessage msg = {common::MessageId::AttachRequest,
-                                   TO_PHONE_NUMBER,
-                                   PHONE_NUMBER};
+                                   PHONE_NUMBER,
+                                   TO_PHONE_NUMBER};
     EXPECT_CALL(transportMock, sendMessage(_));
+    objectUnderTest.sendCallRequest(TO_PHONE_NUMBER);
+}
+
+TEST_F(BtsPortTestSuite, shallNotSendCallRequestOnSamePhoneNumber)
+{
+    EXPECT_CALL(handlerMock, handleCallFailure(_));
     objectUnderTest.sendCallRequest(PHONE_NUMBER);
 }
 

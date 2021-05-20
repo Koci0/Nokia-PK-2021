@@ -135,6 +135,12 @@ void BtsPort::sendCallDropped(common::PhoneNumber toPhoneNumber)
 
 void BtsPort::sendCallRequest(common::PhoneNumber to)
 {
+    if (to == phoneNumber) {
+        logger.logError("sendCallRequest - same PhoneNumber");
+
+        handler->handleCallFailure("You can't call yourself.");
+        return;
+    }
     logger.logInfo("sendCallRequest - PhoneNumber to: ", to);
     common::OutgoingMessage msg{common::MessageId::CallRequest,
                                 phoneNumber,
