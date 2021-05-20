@@ -72,9 +72,9 @@ void ConnectedState::handleCallRequestReject()
 void ConnectedState::handleSendCallRequest(common::PhoneNumber to)
 {
     context.callingPhoneNumber = to;
-    context.bts.sendCallRequest(context.callingPhoneNumber);
     using namespace std::chrono_literals;
     context.timer.startTimer(60s);
+    context.bts.sendCallRequest(context.callingPhoneNumber);
 }
 
 void ConnectedState::handleCallAccepted(common::PhoneNumber from)
