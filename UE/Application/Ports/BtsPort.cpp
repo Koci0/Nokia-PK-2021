@@ -83,19 +83,18 @@ void BtsPort::handleMessage(BinaryMessage msg)
         }
         case common::MessageId::UnknownRecipient:
         {
-            logger.logInfo("BTS handleMessage: UnknownRecipient");
             if (reader.readMessageId() == common::MessageId::Sms) {
-                //handle unknownRecipient from Sms
+                 logger.logInfo("BTS handleMessage: UnknownRecipient - SMS");
                 handler->handleSmsUnknownRecipient();
                 break;
             } else {
-                //handle unknownRecipient from call
+                 logger.logInfo("BTS handleMessage: UnknownRecipient - Call");
                 handler->handleCallUnknownRecipient(from);
             }
             break;
         }
         default:
-            logger.logError("unknow message: ", msgId, ", from: ", from);
+            logger.logError("unknown message: ", msgId, ", from: ", from);
 
         }
     }

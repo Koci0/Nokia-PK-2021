@@ -50,12 +50,12 @@ void UserPort::showConnected()
     menu.addSelectionListItem("Call", "");
 
     gui.setAcceptCallback([&](){
-        if(menu.getCurrentItemIndex().second == 1){
+        if (menu.getCurrentItemIndex().second == 0) {
+                    showSmsCompose();
+        } else if (menu.getCurrentItemIndex().second == 1) {
             showSmsList();
-        } else if(menu.getCurrentItemIndex().second == 2){
+        } else if (menu.getCurrentItemIndex().second == 2) {
             setupCallReceiver();
-        } else if (menu.getCurrentItemIndex().second == 0) {
-            showSmsCompose();
         }
     });
 }

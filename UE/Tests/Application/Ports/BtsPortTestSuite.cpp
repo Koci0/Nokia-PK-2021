@@ -169,6 +169,7 @@ TEST_F(BtsPortTestSuite, shallHandleOnUnknownRecipient)
     common::OutgoingMessage msg{common::MessageId::UnknownRecipient,
                                 common::PhoneNumber{},
                                 PHONE_NUMBER};
+    msg.writeNumber(false);
     messageCallback(msg.getMessage());
 }
 
