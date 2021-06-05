@@ -76,13 +76,6 @@ TEST_F(UserPortTestSuite, shallShowIncomingCallOnCallRequest)
     objectUnderTest.setupIncomingCallButtons(nullptr, nullptr);
 }
 
-TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
-{
-    EXPECT_CALL(guiMock, setCallMode()).WillOnce(ReturnRef(callModeMock));
-    std::string text = "";
-    objectUnderTest.showTalking(text);
-}
-
 TEST_F(UserPortTestSuite, shallShowDialActionModeOnSetupCallReceiver)
 {
     EXPECT_CALL(guiMock, setDialMode()).WillOnce(ReturnRef(dialViewModeMock));
