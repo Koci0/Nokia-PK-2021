@@ -94,4 +94,15 @@ void BaseState::handleSmsSend(Sms &sms)
 {
     logger.logError("Unexpected: handleSmsSend");
 }
+
+void BaseState::handleTalkTextSend(std::string& text)
+{
+    logger.logError("Unexpected: handleCallTextSend");
+}
+
+void BaseState::handleTalkTextReceived(std::string& text)
+{
+    logger.logError("Unexpected: handleTalkTextReceived");
+}
+
 }

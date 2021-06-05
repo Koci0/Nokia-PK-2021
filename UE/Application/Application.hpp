@@ -39,12 +39,15 @@ public:
     void handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber) override;
     void handleCallAccepted(common::PhoneNumber from) override;
     void handleCallFailure(std::string &&) override;
+    void handleTalkTextReceived(std::string& text) override;
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) override;
     void handleCallRequestResignation() override;
 
     void handleSmsSend(Sms &sms) override;
+    void handleTalkTextSend(std::string& text) override;
+
 private:
     Context context;
     common::PrefixedLogger logger;

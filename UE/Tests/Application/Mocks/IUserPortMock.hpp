@@ -18,6 +18,8 @@ public:
     MOCK_METHOD(void, handleSendCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallRequestResignation, (), (final));
     MOCK_METHOD(void, handleSmsSend, (ue::Sms&), (final));
+    MOCK_METHOD(void, handleTalkTextSend, (std::string &),(final));
+
 };
 
 class IUserPortMock : public IUserPort
@@ -42,7 +44,7 @@ public:
     MOCK_METHOD(void, showCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, resetButtons, (), (final));
     MOCK_METHOD(void, setupIncomingCallButtons, (std::function<void()>, std::function<void()>), (final));
-    MOCK_METHOD(void, showTalking, (), (final));
+    MOCK_METHOD(void, showTalking, (std::string&), (final));
     MOCK_METHOD(void, showPeerUserDisconnected, (), (final));
     MOCK_METHOD(void, showSmsCompose, (), (final));
 };

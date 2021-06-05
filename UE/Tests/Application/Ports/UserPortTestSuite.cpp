@@ -79,7 +79,8 @@ TEST_F(UserPortTestSuite, shallShowIncomingCallOnCallRequest)
 TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
 {
     EXPECT_CALL(guiMock, setCallMode()).WillOnce(ReturnRef(callModeMock));
-    objectUnderTest.showTalking();
+    std::string text = "";
+    objectUnderTest.showTalking(text);
 }
 
 TEST_F(UserPortTestSuite, shallShowDialActionModeOnSetupCallReceiver)

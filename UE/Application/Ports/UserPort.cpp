@@ -160,10 +160,22 @@ void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallba
     gui.setRejectCallback(rejectButtonCallback);
 }
 
-void UserPort::showTalking()
+void UserPort::showTalking(std::string& text)
 {
     logger.logInfo("UserPort::showTalking");
-    gui.setCallMode();
+    auto& talking = gui.setCallMode();
+    if(text != ""){
+        talking.appendIncomingText(text);
+    }
+    gui.setAcceptCallback([&](){
+        logger.logInfo("UserPort::Talking ", talking.getOutgoingText());
+        std::string newText = to_string(phoneNumber) + ": " + talking.getOutgoingText();
+        handler->handleTalkTextSend(newText);
+        talking.clearOutgoingText();
+    });
+    gui.setRejectCallback([&](){
+        showConnected();
+    });
 }
 
 void UserPort::showPeerUserDisconnected()

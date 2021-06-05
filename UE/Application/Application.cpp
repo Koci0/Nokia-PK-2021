@@ -101,4 +101,15 @@ void Application::handleSmsSend(Sms &sms)
 {
     context.state->handleSmsSend(sms);
 }
+
+void Application::handleTalkTextSend(std::string& text)
+{
+    context.state->handleTalkTextSend(text);
+}
+
+void Application::handleTalkTextReceived(std::string& text)
+{
+    context.state->handleTalkTextReceived(text);
+}
+
 }
