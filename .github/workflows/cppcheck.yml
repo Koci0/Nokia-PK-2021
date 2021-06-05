@@ -1,15 +1,17 @@
 name: Cppcheck
+
 on: [push]
 
 jobs:
   build:
-    name: cppcheck
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: cppcheck
-        uses: deep5050/cppcheck-action@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          exclude_check: ./BTS ./COMMON ./Doc ./googletest
-          std: c++17
+    - uses: actions/checkout@v2
+    - name: Install cppcheck
+      run: sudo apt install cppcheck
+
+    - name: Run cppcheck
+      run: cppcheck --enable=all --inconclusive --std=c++17 UE/Application
+
