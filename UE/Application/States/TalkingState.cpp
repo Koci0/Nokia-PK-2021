@@ -24,13 +24,13 @@ void TalkingState::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNu
 void TalkingState::handleTalkTextSend(std::string& text)
 {
     context.bts.handleTalkMessageSend(text,withPhoneNumber);
-    logger.logInfo("TalkingState: Sending text: ", text);
+    logger.logInfo("TalkingState::handleTalkTextSend");
     context.user.showTalking(text);
 }
 
 void TalkingState::handleTalkTextReceived(std::string& text)
 {
-    logger.logInfo("virtual void handleTalkTextReceived(std::string&) = 0", text);
+    logger.logInfo("TalkingState::handleTalkTextReceived");
     context.user.showTalking(text);
 }
 

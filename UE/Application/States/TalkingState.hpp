@@ -18,6 +18,7 @@ public:
     void handleTalkTextSend(std::string& text) final;
 private:
     common::PhoneNumber withPhoneNumber;
+
 };
 
 }
