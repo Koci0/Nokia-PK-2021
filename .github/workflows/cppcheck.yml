@@ -13,5 +13,6 @@ jobs:
       run: sudo apt install cppcheck
 
     - name: Run cppcheck
-      run: cppcheck --enable=all --inconclusive --std=c++17 UE/Application
-
+      run: |
+              cppcheck --enable=all --inconclusive --std=c++17 UE/Application 2> >(tee cppcheck.log)
+              [ ! -s cppcheck.log ]
