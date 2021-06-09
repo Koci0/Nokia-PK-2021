@@ -13,8 +13,11 @@ jobs:
       uses: jurplel/install-qt-action@v2
     - name: cmake
       run: cmake .
-    - name: make all targets
-      run: make all
+    - name: Make all targets
+      run: make all 2> >(tee make.log)
+
+    - name: Extract errors for Application
+      run: cat make.log | grep "UE/Application" -A 2 | grep -v COMMON | grep -v "\-\-" | grep "|" --context 2
 
     - name: UT for BtsApplication
       run: make BtsApplicationUT 
