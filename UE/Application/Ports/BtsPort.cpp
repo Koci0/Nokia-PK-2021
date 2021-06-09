@@ -6,7 +6,6 @@
 namespace ue
 {
 
-
 BtsPort::BtsPort(common::ILogger &logger, common::ITransport &transport, common::PhoneNumber phoneNumber)
     : logger(logger, "[BTS-PORT]"),
       transport(transport),
