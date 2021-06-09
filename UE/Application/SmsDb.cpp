@@ -4,7 +4,8 @@
 
 namespace ue
 {
-SmsDb::SmsDb(std::vector<Sms> v_sms)
+
+SmsDb::SmsDb(const std::vector<Sms> &v_sms)
 {
     this->v_sms = v_sms;
 }
@@ -22,11 +23,6 @@ Sms* SmsDb::getOne(int id)
 void SmsDb::addOne(Sms sms)
 {
     v_sms.push_back(sms);
-}
-
-void SmsDb::remove()
-{
-    v_sms.clear();
 }
 
 Sms* SmsDb::getLast()

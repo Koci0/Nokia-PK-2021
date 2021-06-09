@@ -4,7 +4,7 @@ namespace ue
 {
 
 TimerPort::TimerPort(common::ILogger &logger)
-    : logger(logger, "[TIMER PORT]")
+    : running(false), logger(logger, "[TIMER PORT]")
 {}
 
 void TimerPort::start(ITimerEventsHandler &handler)
