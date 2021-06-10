@@ -14,12 +14,11 @@ private:
 
 public:
     SmsDb() = default;
-    SmsDb(std::vector<Sms>);
+    explicit SmsDb(const std::vector<Sms> &);
 
     std::vector<Sms> getAll() override;
     Sms* getOne(int id) override;
     void addOne(Sms sms) override;
-    void remove() override;
     Sms* getLast() override;
 };
 
