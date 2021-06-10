@@ -12,6 +12,8 @@ TalkingState::TalkingState(Context &context, common::PhoneNumber withPhoneNumber
     std::string text = "";
     context.user.showTalking(text);
     context.bts.sendCallAccept(withPhoneNumber);
+    using namespace std::chrono_literals;
+    context.timer.startTimer(120s);
 }
 
 void TalkingState::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber)
@@ -23,6 +25,9 @@ void TalkingState::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNu
 
 void TalkingState::handleTalkTextSend(std::string& text)
 {
+    context.timer.stopTimer();
+    using namespace std::chrono_literals;
+    context.timer.startTimer(120s);
     context.bts.handleTalkMessageSend(text,withPhoneNumber);
     logger.logInfo("TalkingState::handleTalkTextSend");
     context.user.showTalking(text);
@@ -30,8 +35,18 @@ void TalkingState::handleTalkTextSend(std::string& text)
 
 void TalkingState::handleTalkTextReceived(std::string& text)
 {
+    context.timer.stopTimer();
+    using namespace std::chrono_literals;
+    context.timer.startTimer(120s);
     logger.logInfo("TalkingState::handleTalkTextReceived");
     context.user.showTalking(text);
+}
+
+void TalkingState::handleTimeout()
+{
+    logger.logInfo("TalkingState: No activity, dropping call");
+    context.user.showPeerUserDisconnected();
+    // TODO: drop call
 }
 
 }
