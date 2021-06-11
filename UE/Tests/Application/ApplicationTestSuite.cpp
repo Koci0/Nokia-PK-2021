@@ -156,7 +156,7 @@ void ApplicationTalkingTestSuite::doTalking()
     EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(userPortMock, resetButtons());
     EXPECT_CALL(userPortMock, showTalking(_));
-    EXPECT_CALL(timerPortMock, startTimer(120000ms));
+    EXPECT_CALL(timerPortMock, startTimer(_));
     EXPECT_CALL(btsPortMock, sendCallAccept(_));
     objectUnderTest.handleCallRequestAccept();
 }
@@ -170,6 +170,25 @@ TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnUnknownRecipient)
 {
     EXPECT_CALL(userPortMock, showPeerUserDisconnected());
     objectUnderTest.handleCallUnknownRecipient(PHONE_NUMBER);
+}
+
+TEST_F(ApplicationTalkingTestSuite, shallRestartTimerWhenMessageSend)
+{
+    std::string test = "test";
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(timerPortMock, startTimer(_));
+    EXPECT_CALL(btsPortMock, handleTalkMessageSend(test, _));
+    EXPECT_CALL(userPortMock, showTalking(_));
+    objectUnderTest.handleTalkTextSend(test);
+}
+
+TEST_F(ApplicationTalkingTestSuite, shallRestartTimerWhenMessageRecevied)
+{
+    EXPECT_CALL(timerPortMock, stopTimer());
+    EXPECT_CALL(timerPortMock, startTimer(_));
+    EXPECT_CALL(userPortMock, showTalking(_));
+    std::string test = "test";
+    objectUnderTest.handleTalkTextReceived(test);
 }
 
 }
