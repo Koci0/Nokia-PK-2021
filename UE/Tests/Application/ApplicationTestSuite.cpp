@@ -156,6 +156,7 @@ void ApplicationTalkingTestSuite::doTalking()
     EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(userPortMock, resetButtons());
     EXPECT_CALL(userPortMock, showTalking(_));
+    EXPECT_CALL(timerPortMock, startTimer(120000ms));
     EXPECT_CALL(btsPortMock, sendCallAccept(_));
     objectUnderTest.handleCallRequestAccept();
 }
