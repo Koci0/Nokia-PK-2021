@@ -104,9 +104,9 @@ TEST_F(BtsPortTestSuite, shallSendAttachRequest)
     ASSERT_NO_THROW(reader.checkEndOfMessage());
 }
 
-TEST_F(BtsPortTestSuite, shallHandleSmsReceived)
+TEST_F(BtsPortTestSuite, shallHandleSms)
 {
-    EXPECT_CALL(handlerMock, handleSmsReceived);
+    EXPECT_CALL(handlerMock, handleSms);
     common::OutgoingMessage msg{common::MessageId::Sms,
                             common::PhoneNumber{},
                             PHONE_NUMBER};
@@ -187,5 +187,27 @@ TEST_F(BtsPortTestSuite, shallSendCallDropped)
                                    PHONE_NUMBER};
     objectUnderTest.sendCallDropped(PHONE_NUMBER);
 }
+
+TEST_F(BtsPortTestSuite, shallSendCallTalk)
+{
+    EXPECT_CALL(transportMock, sendMessage(_));
+    common::OutgoingMessage msg = {common::MessageId::CallTalk,
+                                   PHONE_NUMBER,
+                                   PHONE_NUMBER};
+    std::string text = "text";
+    objectUnderTest.sendCallTalk(text,PHONE_NUMBER);
+}
+
+TEST_F(BtsPortTestSuite, shallHandleCallTalk)
+{
+    EXPECT_CALL(handlerMock, handleCallTalk(_));
+    common::OutgoingMessage msg = {common::MessageId::CallTalk,
+                                   PHONE_NUMBER,
+                                   PHONE_NUMBER};
+    msg.writeNumber(false);
+    messageCallback(msg.getMessage());
+}
+
+
 
 }
