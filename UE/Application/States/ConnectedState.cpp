@@ -16,7 +16,7 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
-void ConnectedState::handleSmsReceived(common::PhoneNumber from, std::string &text)
+void ConnectedState::handleSms(common::PhoneNumber from, std::string &text)
 {
     Sms sms(from, text);
     context.db.addOne(sms);
@@ -104,9 +104,9 @@ void ConnectedState::handleCallRequestResignation()
     context.user.showShortInfo("You dropped a call.");
 }
 
-void ConnectedState::handleSmsSend(Sms &sms)
+void ConnectedState::handleSendSms(Sms &sms)
 {
-    context.bts.handleMessageSend(sms);
+    context.bts.sendSms(sms);
 }
 
 void ConnectedState::handleSmsUnknownRecipient()

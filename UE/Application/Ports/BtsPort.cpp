@@ -63,7 +63,7 @@ void BtsPort::handleMessage(BinaryMessage msg)
             std::string text = reader.readRemainingText();
             logger.logDebug("BtsPort: SmsReceived from: ", from);
             logger.logDebug("BtsPort: SmsReceived messeage ", text);
-            handler->handleSmsReceived(from, text);
+            handler->handleSms(from, text);
             break;
         }
         case common::MessageId::CallRequest:
@@ -98,8 +98,8 @@ void BtsPort::handleMessage(BinaryMessage msg)
         case common::MessageId::CallTalk:
         {
             logger.logInfo("BTS CallTalk from: ",from);
-            std::string text = reader.readRemainingText();
-            handler->handleTalkTextReceived(text);
+            std::string&& text =  reader.readRemainingText();
+            handler->handleCallTalk(text);
             break;
         }
         default:
@@ -156,7 +156,7 @@ void BtsPort::sendCallRequest(common::PhoneNumber to)
     transport.sendMessage(msg.getMessage());
 }
 
-void BtsPort::handleMessageSend(Sms &sms)
+void BtsPort::sendSms(Sms &sms)
 {
     logger.logInfo("sms send from:",sms.from," to:",sms.to);
     common::OutgoingMessage smsSendMsg{common::MessageId::Sms, sms.from, sms.to};
@@ -164,7 +164,7 @@ void BtsPort::handleMessageSend(Sms &sms)
     transport.sendMessage(smsSendMsg.getMessage());
 }
 
-void BtsPort::handleTalkMessageSend(std::string& text, common::PhoneNumber to)
+void BtsPort::sendCallTalk(std::string& text, common::PhoneNumber to)
 {
     logger.logInfo("Talk text: ",text,", to: ",to);
     common::OutgoingMessage msg{common::MessageId::CallTalk,phoneNumber, to};

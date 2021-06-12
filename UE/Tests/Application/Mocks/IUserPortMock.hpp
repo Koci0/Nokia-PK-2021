@@ -17,8 +17,8 @@ public:
     MOCK_METHOD(void, handleCallRequestReject, (), (final));
     MOCK_METHOD(void, handleSendCallRequest, (common::PhoneNumber), (final));
     MOCK_METHOD(void, handleCallRequestResignation, (), (final));
-    MOCK_METHOD(void, handleSmsSend, (ue::Sms&), (final));
-    MOCK_METHOD(void, handleTalkTextSend, (std::string &),(final));
+    MOCK_METHOD(void, handleSendSms, (ue::Sms&), (final));
+    MOCK_METHOD(void, handleSendCallTalk, (std::string &),(final));
 
 };
 

@@ -164,13 +164,13 @@ void UserPort::showTalking(std::string& text)
 {
     logger.logInfo("UserPort::showTalking");
     auto& talking = gui.setCallMode();
-    if(text != ""){
+    if(!text.empty()){
         talking.appendIncomingText(text);
     }
     gui.setAcceptCallback([&](){
         logger.logInfo("UserPort::Talking ", talking.getOutgoingText());
         std::string newText = to_string(phoneNumber) + ": " + talking.getOutgoingText();
-        handler->handleTalkTextSend(newText);
+        handler->handleSendCallTalk(newText);
         talking.clearOutgoingText();
     });
     gui.setRejectCallback([&](){
@@ -197,7 +197,7 @@ void UserPort::showSmsCompose() {
             return;
 
         db.addOne(sms);
-        handler->handleSmsSend(sms);
+        handler->handleSendSms(sms);
         showConnected();
     });
 }

@@ -47,9 +47,9 @@ void Application::handleAttachReject()
     context.state->handleAttachReject();
 }
 
-void Application::handleSmsReceived(common::PhoneNumber from, std::string &text)
+void Application::handleSms(common::PhoneNumber from, std::string &text)
 {
-    context.state->handleSmsReceived(from, text);
+    context.state->handleSms(from, text);
 }
 
 void Application::handleSmsUnknownRecipient()
@@ -97,19 +97,19 @@ void Application::handleCallRequestResignation()
     context.state->handleCallRequestResignation();
 }
 
-void Application::handleSmsSend(Sms &sms)
+void Application::handleSendSms(Sms &sms)
 {
-    context.state->handleSmsSend(sms);
+    context.state->handleSendSms(sms);
 }
 
-void Application::handleTalkTextSend(std::string& text)
+void Application::handleSendCallTalk(std::string& text)
 {
-    context.state->handleTalkTextSend(text);
+    context.state->handleSendCallTalk(text);
 }
 
-void Application::handleTalkTextReceived(std::string& text)
+void Application::handleCallTalk(std::string& text)
 {
-    context.state->handleTalkTextReceived(text);
+    context.state->handleCallTalk(text);
 }
 
 }

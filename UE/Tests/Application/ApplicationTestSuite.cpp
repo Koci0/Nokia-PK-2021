@@ -177,9 +177,9 @@ TEST_F(ApplicationTalkingTestSuite, shallRestartTimerWhenMessageSend)
     std::string test = "test";
     EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(timerPortMock, startTimer(_));
-    EXPECT_CALL(btsPortMock, handleTalkMessageSend(test, _));
+    EXPECT_CALL(btsPortMock, sendCallTalk(test, _));
     EXPECT_CALL(userPortMock, showTalking(_));
-    objectUnderTest.handleTalkTextSend(test);
+    objectUnderTest.handleSendCallTalk(test);
 }
 
 TEST_F(ApplicationTalkingTestSuite, shallRestartTimerWhenMessageRecevied)
@@ -188,7 +188,7 @@ TEST_F(ApplicationTalkingTestSuite, shallRestartTimerWhenMessageRecevied)
     EXPECT_CALL(timerPortMock, startTimer(_));
     EXPECT_CALL(userPortMock, showTalking(_));
     std::string test = "test";
-    objectUnderTest.handleTalkTextReceived(test);
+    objectUnderTest.handleCallTalk(test);
 }
 
 }

@@ -15,10 +15,10 @@ public:
 
     // IBtsEventsHandler interface
     void handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber) final;
-    void handleTalkTextReceived(std::string& text) final;
+    void handleCallTalk(std::string& text) final;
 
     // IUserEventsHandler interface
-    void handleTalkTextSend(std::string& text) final;
+    void handleSendCallTalk(std::string& text) final;
 private:
     common::PhoneNumber withPhoneNumber;
 
