@@ -160,6 +160,13 @@ void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallba
     gui.setRejectCallback(rejectButtonCallback);
 }
 
+void UserPort::setupTalkingButtons(std::function<void()> dropButtonCallback) {
+    logger.logInfo("UserPort::setupTalkingButtons");
+    gui.setAcceptCallback(nullptr);
+    gui.setRejectCallback(dropButtonCallback);
+}
+
+
 void UserPort::showTalking()
 {
     logger.logInfo("UserPort::showTalking");

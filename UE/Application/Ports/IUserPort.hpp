@@ -42,6 +42,7 @@ public:
     virtual void showCallRequest(common::PhoneNumber) = 0;
     virtual void resetButtons() = 0;
     virtual void setupIncomingCallButtons(std::function<void()>, std::function<void()>) = 0;
+    virtual void setupTalkingButtons(std::function<void()>) = 0;
     virtual void showTalking() = 0;
     virtual void showPeerUserDisconnected() = 0;
 
