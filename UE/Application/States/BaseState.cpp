@@ -65,7 +65,7 @@ void BaseState::handleCallRequestReject()
     logger.logError("Unexpected: handleCallRequestReject");
 }
 
-void BaseState::handleCallUnknownRecipient(common::PhoneNumber)
+void BaseState::handleCallUnknownRecipient()
 {
     logger.logError("Unexpected: handleUnknownRecipient");
 }
@@ -75,7 +75,7 @@ void BaseState::handleSendCallRequest(common::PhoneNumber)
     logger.logError("Unexpected: handleSendCallRequest");
 }
 
-void BaseState::handleCallAccepted(common::PhoneNumber from)
+void BaseState::handleCallAccepted()
 {
     logger.logError("Unexpected: handleCallAccepted");
 }
