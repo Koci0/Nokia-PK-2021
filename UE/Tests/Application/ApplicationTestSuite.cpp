@@ -168,7 +168,15 @@ TEST_F(ApplicationTalkingTestSuite, shallAcceptIncomingCallOnAcceptButtonPress)
 TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnUnknownRecipient)
 {
     EXPECT_CALL(userPortMock, showShortInfo(_, _));
+    EXPECT_CALL(userPortMock, showConnected());
     objectUnderTest.handleCallUnknownRecipient();
+}
+
+TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnCallFailure)
+{
+    EXPECT_CALL(userPortMock, showShortInfo(_, _));
+    EXPECT_CALL(userPortMock, showConnected());
+    objectUnderTest.handleCallFailure("");
 }
 
 }
