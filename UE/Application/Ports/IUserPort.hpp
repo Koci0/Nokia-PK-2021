@@ -44,7 +44,6 @@ public:
     virtual void setupIncomingCallButtons(std::function<void()>, std::function<void()>) = 0;
     virtual void setupTalkingButtons(std::function<void()>) = 0;
     virtual void showTalking() = 0;
-    virtual void showPeerUserDisconnected() = 0;
 
     virtual void showSmsCompose() = 0;
 };

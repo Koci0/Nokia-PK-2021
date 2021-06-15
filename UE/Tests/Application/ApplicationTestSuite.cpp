@@ -167,8 +167,8 @@ TEST_F(ApplicationTalkingTestSuite, shallAcceptIncomingCallOnAcceptButtonPress)
 
 TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnUnknownRecipient)
 {
-    EXPECT_CALL(userPortMock, showPeerUserDisconnected());
-    objectUnderTest.handleCallUnknownRecipient(PHONE_NUMBER);
+    EXPECT_CALL(userPortMock, showShortInfo(_, _));
+    objectUnderTest.handleCallUnknownRecipient();
 }
 
 }

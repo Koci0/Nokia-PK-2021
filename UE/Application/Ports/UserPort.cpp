@@ -172,12 +172,6 @@ void UserPort::showTalking()
     gui.setCallMode();
 }
 
-void UserPort::showPeerUserDisconnected()
-{
-    logger.logInfo("UserPort::showPeerUserDisconnected");
-    showShortInfo("Peer User was disconnected from BTS");
-}
-
 void UserPort::showSmsCompose() {
     IUeGui::ISmsComposeMode& smsGui = gui.setSmsComposeMode();
     smsGui.clearSmsText();

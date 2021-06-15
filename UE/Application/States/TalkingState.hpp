@@ -8,10 +8,11 @@ namespace ue
 class TalkingState : public BaseState
 {
 public:
-    TalkingState(Context& context, common::PhoneNumber withPhoneNumber);
+    TalkingState(Context& context);
 
     // IBtsEventsHandler interface
-    void handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber) final;
+    void handleCallUnknownRecipient() final;
+    void handleCallFailure(std::string &&) final;
 };
 
 }
