@@ -56,6 +56,7 @@ void ConnectedState::handleCallRequestAccept()
 {
     logger.logInfo("ConnectedState::handleCallRequestAccept");
     context.timer.stopTimer();
+    context.bts.sendCallAccept(context.callingPhoneNumber);
     context.setState<TalkingState>(context.callingPhoneNumber);
 }
 

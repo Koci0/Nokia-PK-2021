@@ -14,7 +14,6 @@ TalkingState::TalkingState(Context &context, common::PhoneNumber withPhoneNumber
         context.setState<ConnectedState>();
     };
     context.user.setupTalkingButtons(dropButtonCallback);
-    context.bts.sendCallAccept(withPhoneNumber);
 }
 
 void TalkingState::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber)

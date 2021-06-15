@@ -114,16 +114,15 @@ void UserPort::showSmsList() {
 
 void UserPort::showSms(int id) {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
-    Sms* sms = db.getOne(id);
-    menu.setText(sms->text);
-    sms->read=true;
+    Sms* selectedSms = db.getOne(id);
+    menu.setText(selectedSms->text);
+    selectedSms->read=true;
     bool readAll = true;
-    for(auto sms : db.getAll()) {
-        if(sms.read == false){
-            readAll = false;
-            break;
-        }
+    if (std::any_of(db.getAll().begin(), db.getAll().end(), [](Sms &sms) { return sms.read == false; }))
+    {
+        readAll = false;
     }
+
     if (readAll == true) {
         showSmsNotNew();
     }

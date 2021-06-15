@@ -18,7 +18,6 @@ public:
     MOCK_METHOD(std::vector<Sms>, getAll, (), (final));
     MOCK_METHOD(Sms*, getOne, (int), (final));
     MOCK_METHOD(void, addOne, (Sms), (final));
-    MOCK_METHOD(void, remove, (), (final));
     MOCK_METHOD(Sms*, getLast, (), (final));
 };
 
