@@ -10,7 +10,6 @@ TalkingState::TalkingState(Context &context, common::PhoneNumber withPhoneNumber
 {
     context.user.showTalking();
     context.user.resetButtons();
-    context.bts.sendCallAccept(withPhoneNumber);
 }
 
 void TalkingState::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber)
