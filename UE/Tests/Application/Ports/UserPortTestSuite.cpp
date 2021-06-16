@@ -80,6 +80,7 @@ TEST_F(UserPortTestSuite, shallShowDialActionModeOnSetupCallReceiver)
 {
     EXPECT_CALL(guiMock, setDialMode()).WillOnce(ReturnRef(dialViewModeMock));
     EXPECT_CALL(guiMock, setAcceptCallback(_));
+    EXPECT_CALL(guiMock, setRejectCallback(_));
     objectUnderTest.setupCallReceiver();
 }
 
@@ -102,7 +103,6 @@ TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
     EXPECT_CALL(guiMock,setCallMode()).WillOnce(ReturnRef(callModeMock));
     std::string empty = "";
     EXPECT_CALL(guiMock, setAcceptCallback(_));
-    EXPECT_CALL(guiMock, setRejectCallback(_));
     objectUnderTest.showTalking(empty);
 }
 

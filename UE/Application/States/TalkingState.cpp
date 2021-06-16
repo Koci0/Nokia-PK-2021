@@ -8,8 +8,10 @@ namespace ue
 TalkingState::TalkingState(Context &context)
     : BaseState(context, "TalkingState")
 {
+    logger.logInfo("TalkingState::TalkingState");
     context.user.resetButtons();
     auto dropButtonCallback = [&]() {
+        context.timer.stopTimer();
         context.bts.sendCallDropped(context.callingPhoneNumber);
         context.callingPhoneNumber.value = 0;
         context.setState<ConnectedState>();
@@ -29,14 +31,6 @@ void TalkingState::handleCallUnknownRecipient()
     context.setState<ConnectedState>();
 }
 
-void TalkingState::handleCallFailure(std::string &&message)
-{
-    logger.logInfo("TalkingState: handleCallFailure");
-    context.callingPhoneNumber.value = 0;
-    context.user.showShortInfo(std::move(message));
-    context.setState<ConnectedState>();
-}
-
 void TalkingState::handleSendCallTalk(std::string& text)
 {
     context.timer.stopTimer();
@@ -47,8 +41,18 @@ void TalkingState::handleSendCallTalk(std::string& text)
     context.user.showTalking(text);
 }
 
+void TalkingState::handleCallFailure(std::string &&message)
+{
+    logger.logInfo("TalkingState::handleCallFailure");
+    context.callingPhoneNumber.value = 0;
+    context.timer.stopTimer();
+    context.setState<ConnectedState>();
+    context.user.showShortInfo(std::move(message));
+}
+
 void TalkingState::handleCallTalk(std::string& text)
 {
+    logger.logInfo("TalkingState::handleCallTalk");
     context.timer.stopTimer();
     using namespace std::chrono_literals;
     context.timer.startTimer(120s);
@@ -59,7 +63,10 @@ void TalkingState::handleCallTalk(std::string& text)
 void TalkingState::handleTimeout()
 {
     logger.logInfo("TalkingState: No activity, dropping call");
-    context.state->handleCallFailure("Timeout.");
+    context.bts.sendCallDropped(context.callingPhoneNumber);
+    context.callingPhoneNumber.value = 0;
+    context.setState<ConnectedState>();
+    context.user.showShortInfo(std::move("Timeout."));
 }
 
 }

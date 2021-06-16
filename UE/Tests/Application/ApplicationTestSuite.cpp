@@ -155,6 +155,7 @@ void ApplicationTalkingTestSuite::doTalking()
 {
     EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(btsPortMock, sendCallAccept(_));
+
     EXPECT_CALL(userPortMock, resetButtons());
     EXPECT_CALL(userPortMock, setupTalkingButtons(_));
     EXPECT_CALL(userPortMock, showTalking(_));
@@ -176,8 +177,9 @@ TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnUnknownRecipient)
 
 TEST_F(ApplicationTalkingTestSuite, shallReturnToMainMenuModeOnCallFailure)
 {
-    EXPECT_CALL(userPortMock, showShortInfo(_, _));
+    EXPECT_CALL(timerPortMock, stopTimer());
     EXPECT_CALL(userPortMock, showConnected());
+    EXPECT_CALL(userPortMock, showShortInfo(_, _));
     objectUnderTest.handleCallFailure("");
 }
 
