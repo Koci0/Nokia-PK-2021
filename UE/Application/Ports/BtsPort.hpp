@@ -20,7 +20,9 @@ public:
     void sendCallRequest(common::PhoneNumber) override;
     void sendCallDropped(common::PhoneNumber) override;
 
-    void handleMessageSend(Sms &sms) override;
+    void sendSms(Sms &sms) override;
+    void sendCallTalk(std::string& text, common::PhoneNumber) override;
+
 private:
     void handleDisconnected();
     void handleMessage(BinaryMessage msg);

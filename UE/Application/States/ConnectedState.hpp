@@ -18,7 +18,7 @@ public:
     // IBtsEventsHandler interface
 public:
     void handleDisconnected() final;
-    void handleSmsReceived(common::PhoneNumber from, std::string &text) final;
+    void handleSms(common::PhoneNumber from, std::string &text) final;
     void handleSmsUnknownRecipient() final;
     void handleCallRequest(common::PhoneNumber) final;
     void handleCallRequestAccept() final;
@@ -30,7 +30,7 @@ public:
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) final;
     void handleCallRequestResignation() final;
-    void handleSmsSend(Sms& sms) final;
+    void handleSendSms(Sms& sms) final;
 };
 
 }

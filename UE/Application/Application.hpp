@@ -31,7 +31,7 @@ public:
     void handleSib(common::BtsId btsId) override;
     void handleAttachAccept() override;
     void handleAttachReject() override;
-    void handleSmsReceived(common::PhoneNumber from, std::string &text) override;
+    void handleSms(common::PhoneNumber from, std::string &text) override;
     void handleSmsUnknownRecipient() override;
     void handleCallRequest(common::PhoneNumber callingPhoneNumber) override;
     void handleCallRequestAccept() override;
@@ -39,12 +39,15 @@ public:
     void handleCallUnknownRecipient() override;
     void handleCallAccepted() override;
     void handleCallFailure(std::string &&) override;
+    void handleCallTalk(std::string& text) override;
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) override;
     void handleCallRequestResignation() override;
 
-    void handleSmsSend(Sms &sms) override;
+    void handleSendSms(Sms &sms) override;
+    void handleSendCallTalk(std::string& text) override;
+
 private:
     Context context;
     common::PrefixedLogger logger;

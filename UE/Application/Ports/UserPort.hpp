@@ -22,8 +22,8 @@ public:
     void showCallRequest(common::PhoneNumber callingPhoneNumber) override;
     void resetButtons() override;
     void setupIncomingCallButtons(std::function<void()>, std::function<void()>) override;
+    void showTalking(std::string& text) override;
     void setupTalkingButtons(std::function<void()>) override;
-    void showTalking() override;
     void setupCallReceiver() override;
     void showShortInfo(std::string &&, InternalMethod = &IUserPort::showConnected) override;
     void callRequestResignation() override;

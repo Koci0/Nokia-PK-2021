@@ -17,7 +17,8 @@ public:
     virtual void handleCallRequestReject() = 0;
     virtual void handleSendCallRequest(common::PhoneNumber to) = 0;
     virtual void handleCallRequestResignation() = 0;
-    virtual void handleSmsSend(Sms& sms) = 0;
+    virtual void handleSendSms(Sms& sms) = 0;
+    virtual void handleSendCallTalk(std::string& text) = 0;
 };
 
 class IUserPort
@@ -42,8 +43,8 @@ public:
     virtual void showCallRequest(common::PhoneNumber) = 0;
     virtual void resetButtons() = 0;
     virtual void setupIncomingCallButtons(std::function<void()>, std::function<void()>) = 0;
+    virtual void showTalking(std::string& text) = 0;
     virtual void setupTalkingButtons(std::function<void()>) = 0;
-    virtual void showTalking() = 0;
 
     virtual void showSmsCompose() = 0;
 };

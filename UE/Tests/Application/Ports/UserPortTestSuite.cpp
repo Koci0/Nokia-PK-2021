@@ -76,16 +76,11 @@ TEST_F(UserPortTestSuite, shallShowIncomingCallOnCallRequest)
     objectUnderTest.setupIncomingCallButtons(nullptr, nullptr);
 }
 
-TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
-{
-    EXPECT_CALL(guiMock, setCallMode()).WillOnce(ReturnRef(callModeMock));
-    objectUnderTest.showTalking();
-}
-
 TEST_F(UserPortTestSuite, shallShowDialActionModeOnSetupCallReceiver)
 {
     EXPECT_CALL(guiMock, setDialMode()).WillOnce(ReturnRef(dialViewModeMock));
     EXPECT_CALL(guiMock, setAcceptCallback(_));
+    EXPECT_CALL(guiMock, setRejectCallback(_));
     objectUnderTest.setupCallReceiver();
 }
 
@@ -101,6 +96,14 @@ TEST_F(UserPortTestSuite, shallHandleCallRequestResignation)
 {
     EXPECT_CALL(handlerMock, handleCallRequestResignation());
     objectUnderTest.callRequestResignation();
+}
+
+TEST_F(UserPortTestSuite, shallShowCallModeOnTalking)
+{
+    EXPECT_CALL(guiMock,setCallMode()).WillOnce(ReturnRef(callModeMock));
+    std::string empty = "";
+    EXPECT_CALL(guiMock, setAcceptCallback(_));
+    objectUnderTest.showTalking(empty);
 }
 
 }

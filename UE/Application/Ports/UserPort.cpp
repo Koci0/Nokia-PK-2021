@@ -43,6 +43,7 @@ void UserPort::showConnecting()
 
 void UserPort::showConnected()
 {
+    logger.logInfo("UserPort::showConnected");
     IUeGui::IListViewMode& menu = gui.setListViewMode();
     menu.clearSelectionList();
     menu.addSelectionListItem("Compose SMS", "");
@@ -62,19 +63,22 @@ void UserPort::showConnected()
 
 void UserPort::setupCallReceiver()
 {
-    logger.logInfo("setup call receiver");
+    logger.logInfo("Setup call receiver");
     auto& mode = gui.setDialMode();
-    gui.setAcceptCallback([&]{
+    gui.setAcceptCallback([&] {
         logger.logInfo("to: ", mode.getPhoneNumber());
         showShortInfo("Calling...", &IUserPort::callRequestResignation);
         this->handler->handleSendCallRequest(mode.getPhoneNumber());
+    });
+    gui.setRejectCallback([&] {
+        showConnected();
     });
 }
 
 void UserPort::showShortInfo(std::string &&message, InternalMethod onRejectFunction)
 {
     // TODO Add timeout hiding message after few second even where the button is not pressed.
-    logger.logDebug("showShortInfo - message:", message);
+    logger.logDebug("UserPort::showShortInfo:", message);
     auto& mode = gui.setAlertMode();
     mode.setText(std::move(message));
     gui.setRejectCallback([this, onRejectFunction]{
@@ -84,7 +88,7 @@ void UserPort::showShortInfo(std::string &&message, InternalMethod onRejectFunct
 
 void UserPort::callRequestResignation()
 {
-    logger.logInfo("user resignation");
+    logger.logInfo("User resignation");
     this->handler->handleCallRequestResignation();
 }
 
@@ -148,8 +152,24 @@ void UserPort::showCallRequest(common::PhoneNumber callingPhoneNumber)
 
 void UserPort::resetButtons()
 {
+    logger.logInfo("UserPort::resetButtons");
     gui.setAcceptCallback(nullptr);
     gui.setRejectCallback(nullptr);
+}
+
+void UserPort::showTalking(std::string& text)
+{
+    logger.logInfo("UserPort::showTalking");
+    auto& talking = gui.setCallMode();
+    if(!text.empty()){
+        talking.appendIncomingText(text);
+    }
+    gui.setAcceptCallback([&](){
+        logger.logInfo("UserPort::Talking ", talking.getOutgoingText());
+        std::string newText = to_string(phoneNumber) + ": " + talking.getOutgoingText();
+        handler->handleSendCallTalk(newText);
+        talking.clearOutgoingText();
+    });
 }
 
 void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallback, std::function<void()> rejectButtonCallback)
@@ -165,13 +185,6 @@ void UserPort::setupTalkingButtons(std::function<void()> dropButtonCallback) {
     gui.setRejectCallback(dropButtonCallback);
 }
 
-
-void UserPort::showTalking()
-{
-    logger.logInfo("UserPort::showTalking");
-    gui.setCallMode();
-}
-
 void UserPort::showSmsCompose() {
     IUeGui::ISmsComposeMode& smsGui = gui.setSmsComposeMode();
     smsGui.clearSmsText();
@@ -185,7 +198,7 @@ void UserPort::showSmsCompose() {
             return;
 
         db.addOne(sms);
-        handler->handleSmsSend(sms);
+        handler->handleSendSms(sms);
         showConnected();
     });
 }

@@ -8,6 +8,7 @@ namespace ue
 ConnectedState::ConnectedState(Context &context)
     : BaseState(context, "ConnectedState")
 {
+    logger.logInfo("ConnectedState::ConnectedState");
     context.user.showConnected();
 }
 
@@ -16,7 +17,7 @@ void ConnectedState::handleDisconnected()
     context.setState<NotConnectedState>();
 }
 
-void ConnectedState::handleSmsReceived(common::PhoneNumber from, std::string &text)
+void ConnectedState::handleSms(common::PhoneNumber from, std::string &text)
 {
     Sms sms(from, text);
     context.db.addOne(sms);
@@ -72,6 +73,7 @@ void ConnectedState::handleCallRequestReject()
 
 void ConnectedState::handleSendCallRequest(common::PhoneNumber to)
 {
+    logger.logInfo("ConnectedState::handleSendCallRequest: ", to);
     context.callingPhoneNumber = to;
     using namespace std::chrono_literals;
     context.timer.startTimer(60s);
@@ -87,13 +89,14 @@ void ConnectedState::handleCallAccepted()
 
 void ConnectedState::handleCallFailure(std::string &&message)
 {
-    logger.logInfo("ConnectedState: handleCallFailure");
+    logger.logInfo("ConnectedState::handleCallFailure");
     context.user.showShortInfo(std::move(message));
     context.timer.stopTimer();
 }
 
 void ConnectedState::handleCallUnknownRecipient()
 {
+    logger.logInfo("ConnectedState::handleCallUnknownRecipient");
     handleCallFailure("User is not connected.");
 }
 
@@ -105,9 +108,9 @@ void ConnectedState::handleCallRequestResignation()
     context.user.showShortInfo("You dropped a call.");
 }
 
-void ConnectedState::handleSmsSend(Sms &sms)
+void ConnectedState::handleSendSms(Sms &sms)
 {
-    context.bts.handleMessageSend(sms);
+    context.bts.sendSms(sms);
 }
 
 void ConnectedState::handleSmsUnknownRecipient()
