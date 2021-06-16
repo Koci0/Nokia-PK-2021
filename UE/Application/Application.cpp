@@ -72,9 +72,9 @@ void Application::handleCallRequestReject()
     context.state->handleCallRequestReject();
 }
 
-void Application::handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber)
+void Application::handleCallUnknownRecipient()
 {
-    context.state->handleCallUnknownRecipient(callingPhoneNumber);
+    context.state->handleCallUnknownRecipient();
 }
 
 void Application::handleSendCallRequest(common::PhoneNumber to)
@@ -82,9 +82,9 @@ void Application::handleSendCallRequest(common::PhoneNumber to)
     context.state->handleSendCallRequest(to);
 }
 
-void Application::handleCallAccepted(common::PhoneNumber from)
+void Application::handleCallAccepted()
 {
-    context.state->handleCallAccepted(from);
+    context.state->handleCallAccepted();
 }
 
 void Application::handleCallFailure(std::string &&message)

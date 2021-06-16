@@ -9,7 +9,7 @@ namespace ue
 class ConnectedState : public BaseState
 {
 public:
-    ConnectedState(Context& context);
+    explicit ConnectedState(Context& context);
 
     // ITimerEventsHandler interface
 public:
@@ -23,9 +23,9 @@ public:
     void handleCallRequest(common::PhoneNumber) final;
     void handleCallRequestAccept() final;
     void handleCallRequestReject() final;
-    void handleCallAccepted(common::PhoneNumber from) final;
+    void handleCallAccepted() final;
     void handleCallFailure(std::string &&) final;
-    void handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber) final;
+    void handleCallUnknownRecipient() final;
 
     // IUserEventsHandler interface
     void handleSendCallRequest(common::PhoneNumber to) final;

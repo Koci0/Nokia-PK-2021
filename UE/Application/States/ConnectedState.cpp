@@ -56,7 +56,8 @@ void ConnectedState::handleCallRequestAccept()
 {
     logger.logInfo("ConnectedState::handleCallRequestAccept");
     context.timer.stopTimer();
-    context.setState<TalkingState>(context.callingPhoneNumber);
+    context.bts.sendCallAccept(context.callingPhoneNumber);
+    context.setState<TalkingState>();
 }
 
 void ConnectedState::handleCallRequestReject()
@@ -77,11 +78,11 @@ void ConnectedState::handleSendCallRequest(common::PhoneNumber to)
     context.bts.sendCallRequest(context.callingPhoneNumber);
 }
 
-void ConnectedState::handleCallAccepted(common::PhoneNumber from)
+void ConnectedState::handleCallAccepted()
 {
     logger.logInfo("ConnectedState: handleCallAccepted");
     context.timer.stopTimer();
-    context.setState<TalkingState>(from);
+    context.setState<TalkingState>();
 }
 
 void ConnectedState::handleCallFailure(std::string &&message)
@@ -91,7 +92,7 @@ void ConnectedState::handleCallFailure(std::string &&message)
     context.timer.stopTimer();
 }
 
-void ConnectedState::handleCallUnknownRecipient(common::PhoneNumber)
+void ConnectedState::handleCallUnknownRecipient()
 {
     handleCallFailure("User is not connected.");
 }

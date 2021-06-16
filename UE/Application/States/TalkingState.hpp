@@ -8,20 +8,20 @@ namespace ue
 class TalkingState : public BaseState
 {
 public:
-    TalkingState(Context& context, common::PhoneNumber withPhoneNumber);
+    explicit TalkingState(Context& context);
 
     // ITimerEventsHandler interface
     void handleTimeout() final;
 
     // IBtsEventsHandler interface
-    void handleCallUnknownRecipient(common::PhoneNumber callingPhoneNumber) final;
     void handleCallTalk(std::string& text) final;
 
     // IUserEventsHandler interface
     void handleSendCallTalk(std::string& text) final;
-private:
-    common::PhoneNumber withPhoneNumber;
 
+private:
+    void handleCallUnknownRecipient() final;
+    void handleCallFailure(std::string &&) final;
 };
 
 }

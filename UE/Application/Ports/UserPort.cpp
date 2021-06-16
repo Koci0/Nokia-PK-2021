@@ -114,16 +114,15 @@ void UserPort::showSmsList() {
 
 void UserPort::showSms(int id) {
     IUeGui::ITextMode& menu = gui.setViewTextMode();
-    Sms* sms = db.getOne(id);
-    menu.setText(sms->text);
-    sms->read=true;
+    Sms* selectedSms = db.getOne(id);
+    menu.setText(selectedSms->text);
+    selectedSms->read=true;
     bool readAll = true;
-    for(auto sms : db.getAll()) {
-        if(sms.read == false){
-            readAll = false;
-            break;
-        }
+    if (std::any_of(db.getAll().begin(), db.getAll().end(), [](Sms &sms) { return sms.read == false; }))
+    {
+        readAll = false;
     }
+
     if (readAll == true) {
         showSmsNotNew();
     }
@@ -153,13 +152,6 @@ void UserPort::resetButtons()
     gui.setRejectCallback(nullptr);
 }
 
-void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallback, std::function<void()> rejectButtonCallback)
-{
-    logger.logInfo("UserPort::setupIncomingCallButtons");
-    gui.setAcceptCallback(acceptButtonCallback);
-    gui.setRejectCallback(rejectButtonCallback);
-}
-
 void UserPort::showTalking(std::string& text)
 {
     logger.logInfo("UserPort::showTalking");
@@ -178,10 +170,17 @@ void UserPort::showTalking(std::string& text)
     });
 }
 
-void UserPort::showPeerUserDisconnected()
+void UserPort::setupIncomingCallButtons(std::function<void()> acceptButtonCallback, std::function<void()> rejectButtonCallback)
 {
-    logger.logInfo("UserPort::showPeerUserDisconnected");
-    showShortInfo("Peer User was disconnected from BTS");
+    logger.logInfo("UserPort::setupIncomingCallButtons");
+    gui.setAcceptCallback(acceptButtonCallback);
+    gui.setRejectCallback(rejectButtonCallback);
+}
+
+void UserPort::setupTalkingButtons(std::function<void()> dropButtonCallback) {
+    logger.logInfo("UserPort::setupTalkingButtons");
+    gui.setAcceptCallback(nullptr);
+    gui.setRejectCallback(dropButtonCallback);
 }
 
 void UserPort::showSmsCompose() {
