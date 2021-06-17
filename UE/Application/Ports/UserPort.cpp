@@ -77,7 +77,6 @@ void UserPort::setupCallReceiver()
 
 void UserPort::showShortInfo(std::string &&message, InternalMethod onRejectFunction)
 {
-    // TODO Add timeout hiding message after few second even where the button is not pressed.
     logger.logDebug("UserPort::showShortInfo:", message);
     auto& mode = gui.setAlertMode();
     mode.setText(std::move(message));
@@ -163,6 +162,8 @@ void UserPort::showTalking(std::string& text)
     auto& talking = gui.setCallMode();
     if(!text.empty()){
         talking.appendIncomingText(text);
+    } else {
+        talking.clearIncomingText();
     }
     gui.setAcceptCallback([&](){
         logger.logInfo("UserPort::Talking ", talking.getOutgoingText());
